@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ШТАБ — организация форумов, конференций и образовательных программ</title>
+<meta name="description" content="Организуем деловые, образовательные и молодёжные события: программа и спикеры, команда на площадке, мультимедиа, съёмка и отчётность. Проекты для Таврида.Арт, Росмолодёжи, Минпромторга, Газпром недр, Ozon.">
+<style>
+  :root {
+    --blue: #001AFF;
+    --blue-d: #0014C4;
+    --ink: #16181D;
+    --ink-60: #5B6068;
+    --ink-40: #8A9099;
+    --line: #E4E7EC;
+    --paper: #F5F6F8;
+    --r: 18px;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #fff; color: var(--ink); font-family: -apple-system, 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 17px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  h1, h2, h3, p { margin: 0; }
+
+  @keyframes shtabMarquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @keyframes shtabRise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+
+  /* --- сетка --- */
+  .wrap { max-width: 1360px; margin: 0 auto; padding: 0 48px; width: 100%; }
+  .sec { padding: 88px 0; }
+  .sec--paper { background: var(--paper); }
+  .sec--ink { background: var(--ink); color: #fff; }
+  .sec-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; margin-bottom: 40px; flex-wrap: wrap; }
+  .eyebrow { font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue); font-weight: 600; margin-bottom: 14px; display: block; }
+
+  /* --- типографика --- */
+  .h1 { font-size: 58px; line-height: 1.04; letter-spacing: -0.035em; font-weight: 700; }
+  .h2 { font-size: 36px; line-height: 1.1; letter-spacing: -0.03em; font-weight: 700; }
+  .h3 { font-size: 21px; line-height: 1.25; letter-spacing: -0.02em; font-weight: 700; }
+  .lead { font-size: 19px; line-height: 1.5; color: var(--ink-60); }
+  .small { font-size: 15px; line-height: 1.5; color: var(--ink-60); }
+  .num { font-size: 42px; line-height: 1; letter-spacing: -0.04em; font-weight: 700; }
+
+  /* --- кнопки --- */
+  .btn { display: inline-flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 600; padding: 15px 26px; border-radius: 999px; cursor: pointer; border: 1px solid transparent; transition: background 200ms, color 200ms, border-color 200ms, transform 200ms; font-family: inherit; }
+  .btn:active { transform: translateY(1px); }
+  .btn--blue { background: var(--blue); color: #fff; }
+  .btn--blue:hover { background: var(--blue-d); }
+  .btn--line { border-color: var(--line); color: var(--ink); background: #fff; }
+  .btn--line:hover { border-color: var(--ink); }
+  .btn--ghost { border-color: rgba(255,255,255,.3); color: #fff; background: transparent; }
+  .btn--ghost:hover { background: rgba(255,255,255,.1); }
+  .link { color: var(--blue); font-weight: 600; font-size: 16px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: gap 200ms; }
+  .link:hover { gap: 14px; }
+
+  /* --- шапка --- */
+  .nav { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,.92); backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
+  .nav-in { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+  .nav-links { display: flex; gap: 28px; align-items: center; font-size: 16px; }
+  .nav-links span { cursor: pointer; transition: color 180ms; }
+  .nav-links span:hover { color: var(--blue); }
+  .burger { display: none; width: 44px; height: 44px; border-radius: 12px; border: 1px solid var(--line); background: #fff; cursor: pointer; align-items: center; justify-content: center; flex-direction: column; gap: 5px; padding: 0; transition: border-color 200ms; }
+  .burger:hover { border-color: var(--ink); }
+  .burger i { display: block; width: 18px; height: 2px; background: var(--ink); border-radius: 2px; transition: transform 260ms cubic-bezier(.2,.9,.2,1), opacity 200ms; }
+  .burger.on i:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .burger.on i:nth-child(2) { opacity: 0; }
+  .burger.on i:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .drop { position: fixed; inset: 0; background: #fff; z-index: 100; overflow-y: auto; overscroll-behavior: contain;
+    opacity: 0; visibility: hidden; transform: translateY(-8px); transition: opacity 240ms ease, transform 280ms cubic-bezier(.2,.9,.2,1), visibility 240ms; }
+  .drop.open { opacity: 1; visibility: visible; transform: none; }
+  .drop-top { display: flex; align-items: center; justify-content: space-between; height: 60px; padding: 0 18px; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: #fff; }
+  .drop-body { padding: 12px 18px 48px; }
+  .drop .dl { animation: shtabRise 420ms cubic-bezier(.2,.9,.2,1) both; }
+  .drop.open .dl:nth-child(1) { animation-delay: 40ms; }
+  .drop.open .dl:nth-child(2) { animation-delay: 80ms; }
+  .drop.open .dl:nth-child(3) { animation-delay: 120ms; }
+  .drop.open .dl:nth-child(4) { animation-delay: 160ms; }
+  .drop.open .dl:nth-child(5) { animation-delay: 200ms; }
+  .drop span.dl { display: flex; align-items: center; justify-content: space-between; padding: 20px 4px; border-bottom: 1px solid var(--line); font-size: 21px; font-weight: 600; letter-spacing: -0.02em; cursor: pointer; }
+  .drop .dl-arr { color: var(--ink-40); font-weight: 400; }
+  .drop-foot { margin-top: 32px; display: flex; flex-direction: column; gap: 14px; }
+  .drop-top .burger { display: flex; }
+
+  .logo { display: flex; align-items: baseline; gap: 9px; cursor: pointer; }
+  .logo b { font-size: 21px; letter-spacing: -0.03em; }
+  .logo i { font-style: normal; font-size: 11px; letter-spacing: 0.2em; color: var(--ink-40); }
+
+  /* --- мозаика --- */
+  .mosaic { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .tile { border-radius: var(--r); padding: 26px; display: flex; flex-direction: column; justify-content: space-between; min-height: 150px; transition: transform 260ms cubic-bezier(.2,.9,.2,1), box-shadow 260ms; }
+  .tile--cat { background: var(--paper); }
+  .tile--cat:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(20,24,40,.08); }
+  .tile--num { background: var(--blue); color: #fff; }
+  .tile--dark { background: var(--ink); color: #fff; }
+  .tile-t { font-size: 19px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; }
+  .tile-d { font-size: 15px; color: var(--ink-60); margin-top: 8px; }
+  .tile--num .tile-d, .tile--dark .tile-d { color: rgba(255,255,255,.72); }
+  .tile-i { font-size: 13px; color: var(--ink-40); font-weight: 600; }
+
+  /* --- проекты --- */
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+  .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }
+  .card { cursor: pointer; display: flex; flex-direction: column; }
+  .card-shot { border-radius: var(--r); overflow: hidden; position: relative; background: var(--paper); aspect-ratio: 4 / 3; display: flex; align-items: flex-end; padding: 22px; transition: box-shadow 300ms; }
+  .card:hover .card-shot { box-shadow: 0 16px 36px rgba(20,24,40,.14); }
+  .card-shot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 800ms cubic-bezier(.2,.9,.2,1); }
+  .card:hover .card-shot img { transform: scale(1.05); }
+  .card-metric { position: relative; z-index: 2; }
+  .card-metric b { display: block; font-size: 40px; line-height: 1; letter-spacing: -0.04em; }
+  .card-metric span { display: block; font-size: 14px; color: var(--ink-60); margin-top: 6px; }
+  .card-tag { position: absolute; top: 18px; left: 18px; z-index: 2; background: #fff; border-radius: 999px; padding: 6px 14px; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
+  .card-body { padding: 20px 4px 0; }
+  .card-client { font-size: 13px; color: var(--blue); font-weight: 600; letter-spacing: 0.04em; }
+  .card-title { font-size: 21px; font-weight: 700; letter-spacing: -0.025em; line-height: 1.22; margin-top: 8px; }
+  .card-meta { font-size: 15px; color: var(--ink-60); margin-top: 8px; }
+  .card-more { font-size: 14px; color: var(--blue); font-weight: 600; margin-top: 14px; opacity: 0; transform: translateY(-4px); transition: opacity 240ms, transform 240ms; }
+  .card:hover .card-more { opacity: 1; transform: none; }
+
+  /* --- пилюли --- */
+  .pills { display: flex; flex-wrap: wrap; gap: 10px; }
+  .pill { border: 1px solid var(--line); border-radius: 999px; padding: 13px 22px; font-size: 16px; background: #fff; cursor: default; transition: border-color 200ms, background 200ms, color 200ms; }
+  .pill:hover { border-color: var(--blue); color: var(--blue); }
+  .pill--on { background: var(--blue); border-color: var(--blue); color: #fff; }
+  .pill--on:hover { color: #fff; }
+  #filters .pill, #budget .pill { cursor: pointer; }
+
+  /* --- процесс --- */
+  .track { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; }
+  .tstep { border-radius: 14px; padding: 20px 18px; background: var(--paper); cursor: pointer; transition: background 240ms, color 240ms; }
+  .tstep.on { background: var(--blue); color: #fff; }
+  .tstep.on .tstep-i, .tstep.on .tstep-t { color: rgba(255,255,255,.75); }
+  .tstep-i { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; color: var(--ink-40); }
+  .tstep-n { font-size: 17px; font-weight: 700; letter-spacing: -0.02em; margin: 10px 0 6px; line-height: 1.2; }
+  .tstep-t { font-size: 13px; color: var(--ink-60); }
+
+  /* --- фото --- */
+  .shot { border-radius: var(--r); overflow: hidden; background: var(--paper); }
+  .shot img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; transition: transform 900ms cubic-bezier(.2,.9,.2,1); }
+  .shot:hover img { transform: scale(1.03); }
+  .shot-cap { padding: 16px 20px 18px; display: flex; justify-content: space-between; gap: 16px; align-items: baseline; }
+
+  /* --- благодарственные письма --- */
+  .letters { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .letter { background: #fff; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; transition: transform 260ms cubic-bezier(.2,.9,.2,1), box-shadow 260ms; }
+  .letter:hover { transform: translateY(-3px); box-shadow: 0 14px 32px rgba(20,24,40,.10); }
+  .letter-img { aspect-ratio: 3 / 4; background: var(--paper); position: relative; display: flex; align-items: center; justify-content: center; }
+  .letter-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .letter-empty { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-40); }
+  .letter-cap { padding: 14px 16px 16px; }
+  .letter-cap b { display: block; font-size: 15px; font-weight: 600; line-height: 1.3; }
+  .letter-cap span { display: block; font-size: 13px; color: var(--ink-40); margin-top: 5px; }
+
+  /* --- форма --- */
+  .fld { font-family: inherit; font-size: 17px; color: var(--ink); background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 15px 18px; outline: none; width: 100%; transition: border-color 200ms, box-shadow 200ms; }
+  .fld:focus { border-color: var(--blue); box-shadow: 0 0 0 4px rgba(0,26,255,.09); }
+  .fld-l { font-size: 14px; color: var(--ink-60); margin-bottom: 8px; display: block; }
+  .seg { display: flex; gap: 8px; flex-wrap: wrap; }
+
+  /* --- прочее --- */
+  /* --- ленты логотипов --- */
+  .logos { display: flex; flex-direction: column; gap: 14px; overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+  .logo-row { display: flex; width: max-content; gap: 14px; animation: shtabMarquee 46s linear infinite; }
+  .logo-row--back { animation-duration: 58s; animation-direction: reverse; }
+  .logos:hover .logo-row { animation-play-state: paused; }
+  .logo-chip { display: flex; align-items: center; justify-content: center; height: 104px; min-width: 260px; padding: 0 34px;
+    background: #fff; border: 1px solid var(--line); border-radius: 16px; font-size: 18px; font-weight: 600;
+    letter-spacing: -0.01em; color: var(--ink-60); white-space: nowrap; transition: color 200ms, border-color 200ms; }
+  .logo-chip:hover { color: var(--ink); border-color: var(--ink-40); }
+  .logo-chip img { max-height: 52px; width: auto; object-fit: contain; }
+
+  .marquee { overflow: hidden; background: var(--ink); padding: 14px 0; }
+  .marquee-in { display: flex; width: max-content; animation: shtabMarquee 34s linear infinite; }
+  .marquee-in span { font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,.62); }
+  .rise { animation: shtabRise 640ms cubic-bezier(.2,.9,.2,1) both; }
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
+  .foot-col b { display: block; font-size: 14px; color: var(--ink-40); font-weight: 600; margin-bottom: 8px; }
+  .foot-col a { font-size: 17px; }
+  .foot-col a:hover { color: var(--blue); }
+
+  @media (max-width: 1080px) {
+    .wrap { padding: 0 28px; }
+    .h1 { font-size: 42px; }
+    .h2 { font-size: 29px; }
+    .mosaic { grid-template-columns: repeat(2, 1fr); }
+    .grid-3 { grid-template-columns: repeat(2, 1fr); }
+    .track { grid-template-columns: repeat(4, 1fr); }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .hide-md { display: none !important; }
+    .nav-links { display: none; }
+    .burger { display: flex; }
+    .sec { padding: 60px 0; }
+  }
+  @media (max-width: 1080px) { .letters { grid-template-columns: repeat(3, 1fr); } }
+
+  @media (max-width: 680px) {
+    .wrap { padding: 0 18px; }
+    .sec { padding: 40px 0; }
+    .h1 { font-size: 31px; }
+    .h2 { font-size: 22px; }
+    .h3 { font-size: 18px; }
+    .lead { font-size: 16px; }
+    .num { font-size: 27px; }
+    body { font-size: 16px; }
+    .sec-head { margin-bottom: 22px; gap: 14px; }
+    .eyebrow { font-size: 11px; margin-bottom: 10px; }
+
+    /* две колонки вместо одной — скролл вдвое короче */
+    .mosaic { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    .tile { padding: 16px; min-height: 112px; border-radius: 14px; }
+    .tile-t { font-size: 15px; }
+    .tile-d { font-size: 12px; margin-top: 5px; }
+    .tile-i { font-size: 11px; }
+    .grid-3 { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .grid-2 { grid-template-columns: 1fr; gap: 22px; }
+    .stats { grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .card-title { font-size: 15px; margin-top: 6px; }
+    .card-meta { font-size: 13px; margin-top: 5px; }
+    .card-client { font-size: 11px; }
+    .card-body { padding: 12px 2px 0; }
+    .card-metric b { font-size: 26px; }
+    .card-metric span { font-size: 12px; }
+    .card-tag { font-size: 10px; padding: 5px 10px; top: 12px; left: 12px; }
+    .card-more { display: none; }
+    .letters { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .logo-chip { height: 74px; min-width: 178px; padding: 0 22px; font-size: 15px; border-radius: 12px; }
+    .logos { gap: 10px; }
+    .logo-row { gap: 10px; }
+
+    /* горизонтальные ленты вместо длинных столбцов */
+    .hscroll { display: flex; overflow-x: auto; gap: 12px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; padding-bottom: 6px; }
+    .hscroll::-webkit-scrollbar { height: 3px; }
+    .hscroll::-webkit-scrollbar-thumb { background: var(--line); border-radius: 3px; }
+    .hscroll > * { flex: 0 0 76%; scroll-snap-align: start; }
+    .track { display: flex; overflow-x: auto; gap: 10px; padding-bottom: 6px; scroll-snap-type: x mandatory; }
+    .track > * { flex: 0 0 44%; scroll-snap-align: start; }
+
+    .hscroll-md { display: flex; overflow-x: auto; gap: 12px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; padding-bottom: 6px; }
+    .hscroll-md > * { flex: 0 0 88%; scroll-snap-align: start; }
+    .pill { padding: 9px 15px; font-size: 14px; }
+    .btn { padding: 13px 20px; font-size: 15px; width: auto; }
+    .nav-in { height: 60px; }
+    .logo b { font-size: 18px; }
+    .logo i { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ШАПКА -->
+<div class="nav">
+  <div class="wrap nav-in">
+    <div class="logo" onclick="go('home')"><b>ШТАБ</b><i>SHTAB</i></div>
+    <div class="nav-links">
+      <span class="hide-md" onclick="go('home')">Главная</span>
+      <span onclick="go('cases')">Проекты</span>
+      <span onclick="go('services')">Услуги</span>
+      <span class="hide-md" onclick="go('about')">Команда</span>
+      <span class="hide-md" onclick="go('contacts')">Контакты</span>
+      <button class="btn btn--blue" style="padding: 11px 20px; font-size: 15px;" onclick="go('contacts')">Связаться</button>
+    </div>
+    <button class="burger" id="burger" onclick="toggleMenu()" aria-label="Меню"><i></i><i></i><i></i></button>
+  </div>
+</div>
+
+<!-- ================= ГЛАВНАЯ ================= -->
+<div id="p-home">
+
+  <!-- ГЕРОЙ -->
+  <div class="sec" style="padding: 72px 0 64px;">
+    <div class="wrap rise">
+      <div class="grid-2" style="gap: 56px; align-items: center;">
+        <div>
+          <span class="eyebrow">организация мероприятий</span>
+          <h1 class="h1">Реализуем мас<span style="color: var(--blue);">штаб</span>ные события</h1>
+          <p class="lead" style="margin-top: 22px; max-width: 46ch;">Деловые форумы, конференции и образовательные программы для государственных институций и корпораций: содержательная программа, персонал на площадке, техническое обеспечение и отчётность.</p>
+          <div style="display: flex; gap: 12px; margin-top: 32px; flex-wrap: wrap;">
+            <button class="btn btn--blue" onclick="go('cases')">Смотреть проекты</button>
+            <a class="btn btn--line" href="files/shtab-presentation.pdf" download>Скачать презентацию</a>
+          </div>
+        </div>
+        <div id="showreel" class="shot" style="aspect-ratio: 16/9; background: var(--ink);"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- БЕГУЩАЯ ЛЕНТА -->
+  <div class="marquee"><div class="marquee-in" id="marquee"></div></div>
+
+  <!-- О КОМПАНИИ + МОЗАИКА -->
+  <div class="sec">
+    <div class="wrap">
+      <div class="grid-2" style="gap: 56px; align-items: start; margin-bottom: 44px;">
+        <div>
+          <span class="eyebrow">о компании</span>
+          <h2 class="h2">Организация мероприятий полного цикла</h2>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+          <p class="lead">ШТАБ обеспечивает подготовку и проведение деловых, образовательных и молодёжных мероприятий — от разработки содержательной программы до передачи отчётных документов. Ответственность за проект несёт один руководитель.</p>
+          <p class="lead">Опыт работы с федеральными автономными некоммерческими организациями, региональными министерствами, промышленными компаниями и федеральными торговыми сетями.</p>
+        </div>
+      </div>
+      <div class="mosaic" id="mosaic"></div>
+    </div>
+  </div>
+
+  <!-- ПРОЕКТЫ -->
+  <div class="sec sec--paper">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">проекты</span>
+          <h2 class="h2">Реализованные проекты</h2>
+        </div>
+        <span class="link" onclick="go('cases')">Все проекты →</span>
+      </div>
+      <div id="featured" class="grid-3"></div>
+    </div>
+  </div>
+
+  <!-- С ПЛОЩАДОК -->
+  <div class="sec">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">материалы</span>
+          <h2 class="h2">Работа на площадке</h2>
+        </div>
+        <span class="small hide-md">материалы с мероприятий</span>
+      </div>
+      <div id="gallery" class="grid-2 hscroll-md"></div>
+    </div>
+  </div>
+
+  <!-- УСЛУГИ -->
+  <div class="sec sec--paper">
+    <div class="wrap">
+      <div class="grid-2" style="gap: 56px; align-items: start; margin-bottom: 36px;">
+        <div>
+          <span class="eyebrow">услуги</span>
+          <h2 class="h2">Состав работ</h2>
+        </div>
+        <p class="lead">Обеспечиваем полный состав работ по мероприятию: разработка программы, подбор спикеров, вывод персонала, техническое сопровождение площадки, производство контента и отчётная документация.</p>
+      </div>
+      <div id="scope" class="pills"></div>
+      <div style="margin-top: 32px;"><span class="link" onclick="go('services')">Подробно об услугах →</span></div>
+    </div>
+  </div>
+
+  <!-- НАДЁЖНОСТЬ -->
+  <div class="sec sec--ink">
+    <div class="wrap">
+      <div class="grid-2" style="gap: 56px; align-items: start; margin-bottom: 44px;">
+        <div>
+          <span class="eyebrow" style="color: #7f8cff;">организация работы</span>
+          <h2 class="h2">Организация работы и ответственность</h2>
+        </div>
+        <p class="lead" style="color: rgba(255,255,255,.7);">Руководитель проекта отвечает за смету, исполнителей, площадку и отчётность — от согласования задания до передачи закрывающих документов. Заказчик ведёт работу через одного человека, а не через несколько подрядчиков.</p>
+      </div>
+      <div class="stats" id="reliability"></div>
+    </div>
+  </div>
+
+  <!-- ПРОЦЕСС -->
+  <div class="sec">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">процесс</span>
+          <h2 class="h2">Этапы работы</h2>
+        </div>
+        <span id="autoBtn" class="small" style="cursor: pointer;" onclick="toggleAuto()">автопрокрутка включена</span>
+      </div>
+      <div class="track" id="steps"></div>
+      <div id="stepDetail" class="grid-2" style="gap: 40px; margin-top: 32px; align-items: start;"></div>
+    </div>
+  </div>
+
+  <!-- БЛАГОДАРСТВЕННЫЕ ПИСЬМА -->
+  <div class="sec">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">документы</span>
+          <h2 class="h2">Благодарственные письма</h2>
+        </div>
+        <span class="small hide-md">отзывы заказчиков по итогам работ</span>
+      </div>
+      <div id="letters" class="letters"></div>
+    </div>
+  </div>
+
+  <!-- ЗАКАЗЧИКИ -->
+  <div class="sec sec--paper">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">заказчики</span>
+          <h2 class="h2">Заказчики</h2>
+        </div>
+      </div>
+      <div class="logos">
+        <div class="logo-row" id="clients1"></div>
+        <div class="logo-row logo-row--back" id="clients2"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="sec">
+    <div class="wrap">
+      <div style="background: var(--blue); border-radius: 28px; padding: 64px 56px; color: #fff; display: flex; justify-content: space-between; align-items: center; gap: 40px; flex-wrap: wrap;">
+        <div>
+          <h2 class="h2" style="max-width: 24ch;">Направьте задание — подготовим концепцию и смету за три рабочих дня</h2>
+          <p class="lead" style="color: rgba(255,255,255,.78); margin-top: 14px;">Для предварительного расчёта достаточно повода, даты, города и количества участников.</p>
+        </div>
+        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+          <button class="btn" style="background: #fff; color: var(--blue);" onclick="go('contacts')">Направить запрос</button>
+          <a class="btn btn--ghost" href="files/shtab-presentation.pdf" download>Презентация PDF</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ================= ПРОЕКТЫ ================= -->
+<div id="p-cases" style="display: none;">
+  <div class="sec">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">проекты</span>
+          <h1 class="h1">Проекты</h1>
+        </div>
+        <div style="display: flex; align-items: baseline; gap: 12px;"><span id="caseCount" class="num">7</span><span class="small">в выборке</span></div>
+      </div>
+      <div id="filters" class="pills" style="margin-bottom: 40px;"></div>
+      <div id="caseGrid" class="grid-3"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= ПРОЕКТ ВНУТРИ ================= -->
+<div id="p-case" style="display: none;"></div>
+
+<!-- ================= УСЛУГИ ================= -->
+<div id="p-services" style="display: none;">
+  <div class="sec">
+    <div class="wrap">
+      <span class="eyebrow">услуги</span>
+      <h1 class="h1" style="max-width: 18ch;">Что делаем</h1>
+      <p class="lead" style="margin-top: 20px; max-width: 56ch;">Полный цикл работ по мероприятию: содержательная часть, персонал, площадка, производство контента и отчётность.</p>
+      <div id="services" class="grid-3" style="margin-top: 48px;"></div>
+    </div>
+  </div>
+  <div class="sec sec--paper">
+    <div class="wrap">
+      <div class="grid-2" style="gap: 56px; align-items: start;">
+        <div>
+          <span class="eyebrow">бриф</span>
+          <h2 class="h2" style="max-width: 22ch;">Данные для подготовки сметы</h2>
+          <p class="lead" style="margin-top: 18px;">Семи параметров достаточно для предварительного расчёта. Уточняющие вопросы задаём в рабочем порядке.</p>
+          <button class="btn btn--blue" style="margin-top: 26px;" onclick="go('contacts')">Отправить запрос</button>
+        </div>
+        <div id="briefFields" class="grid-2" style="gap: 12px;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= КОМАНДА ================= -->
+<div id="p-about" style="display: none;">
+  <div class="sec">
+    <div class="wrap">
+      <span class="eyebrow">команда</span>
+      <h1 class="h1" style="max-width: 20ch;">Команда проекта</h1>
+      <p class="lead" style="margin-top: 20px; max-width: 54ch;">Постоянный состав — 7 специалистов: продюсирование, программная дирекция, работа на площадке, производство контента. Под каждый проект команда расширяется в соответствии с задачей.</p>
+      <div class="grid-3" style="margin-top: 48px;">
+        <div>
+          <div class="shot" style="background: var(--paper); aspect-ratio: 3/4;"></div>
+          <div class="card-body"><div class="card-title">Катерина</div><div class="card-meta">продюсер полного цикла</div></div>
+        </div>
+        <div>
+          <div class="shot" style="background: var(--blue); aspect-ratio: 3/4; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 46px; font-weight: 300;">+6</div>
+          <div class="card-body"><div class="card-title">Постоянный состав</div><div class="card-meta">программа, площадка, продакшн</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sec sec--paper">
+    <div class="wrap">
+      <div class="grid-2" style="gap: 56px;">
+        <div>
+          <h2 class="h2" style="font-size: 28px;">Состав работ</h2>
+          <div id="aboutDo" style="margin-top: 24px;"></div>
+        </div>
+        <div>
+          <h2 class="h2" style="font-size: 28px;">Категории заказчиков</h2>
+          <div id="aboutWho" style="margin-top: 24px;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= КОНТАКТЫ ================= -->
+<div id="p-contacts" style="display: none;">
+  <div class="sec">
+    <div class="wrap">
+      <div class="grid-2" style="gap: 64px; align-items: start;">
+        <div>
+          <span class="eyebrow">контакты</span>
+          <h1 class="h1" style="max-width: 16ch;">Запрос на организацию мероприятия</h1>
+          <p class="lead" style="margin-top: 18px; max-width: 44ch;">Ответ в течение рабочего дня. Концепция и смета — в течение трёх рабочих дней.</p>
+          <div style="display: flex; flex-direction: column; gap: 20px; margin-top: 36px; max-width: 560px;">
+            <div><span class="fld-l">Повод и формат мероприятия</span><input class="fld" type="text" placeholder="форум, конференция, образовательная программа"></div>
+            <div class="grid-2" style="gap: 16px;">
+              <div><span class="fld-l">Дата и город</span><input class="fld" type="text" placeholder="сентябрь, Москва"></div>
+              <div><span class="fld-l">Участников</span><input class="fld" type="text" placeholder="100, 500, 2 000"></div>
+            </div>
+            <div><span class="fld-l">Бюджет</span><div class="seg" id="budget"></div></div>
+            <div><span class="fld-l">Контактные данные</span><input class="fld" type="text" placeholder="электронная почта или телефон"></div>
+            <button id="sendBtn" class="btn btn--blue" style="align-self: flex-start; margin-top: 6px;" onclick="send()">Отправить запрос</button>
+          </div>
+        </div>
+        <div style="background: var(--paper); border-radius: 24px; padding: 40px; display: flex; flex-direction: column; gap: 30px;">
+          <div id="contactCols" style="display: flex; flex-direction: column; gap: 26px;"></div>
+          <div style="border-top: 1px solid var(--line); padding-top: 26px;">
+            <span class="fld-l">Штаб</span>
+            <div style="font-size: 18px;">Москва</div>
+            <div class="small">работаем по всей России</div>
+          </div>
+          <div style="border-top: 1px solid var(--line); padding-top: 26px;">
+            <span class="fld-l">Порядок работы</span>
+            <div id="next3" style="display: flex; flex-direction: column; gap: 12px; margin-top: 6px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ФУТЕР -->
+<div style="background: var(--ink); color: #fff; padding: 64px 0 40px;">
+  <div class="wrap">
+    <div class="grid-2" style="gap: 56px; align-items: start;">
+      <div>
+        <div class="logo" style="color: #fff;"><b style="font-size: 26px;">ШТАБ</b><i>SHTAB</i></div>
+        <p class="lead" style="color: rgba(255,255,255,.62); margin-top: 16px; max-width: 38ch;">Организация форумов, конференций и образовательных программ. Программа, персонал, площадка, отчётность.</p>
+        <a class="btn btn--ghost" style="margin-top: 24px;" href="files/shtab-presentation.pdf" download>Скачать презентацию</a>
+      </div>
+      <div class="grid-2" style="gap: 32px;" id="footContacts"></div>
+    </div>
+    <div style="border-top: 1px solid rgba(255,255,255,.14); margin-top: 48px; padding-top: 24px; display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap;">
+      <span class="small" style="color: rgba(255,255,255,.45);">© 2026 ШТАБ</span>
+      <div style="display: flex; gap: 24px;">
+        <span class="small" style="color: rgba(255,255,255,.45); cursor: pointer;" onclick="go('cases')">Проекты</span>
+        <span class="small" style="color: rgba(255,255,255,.45); cursor: pointer;" onclick="go('services')">Услуги</span>
+        <span class="small" style="color: rgba(255,255,255,.45); cursor: pointer;" onclick="go('contacts')">Контакты</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- МОБИЛЬНОЕ МЕНЮ -->
+<div class="drop" id="drop">
+  <div class="drop-top">
+    <div class="logo" onclick="go('home')"><b>ШТАБ</b><i>SHTAB</i></div>
+    <button class="burger on" onclick="toggleMenu(false)" aria-label="Закрыть меню"><i></i><i></i><i></i></button>
+  </div>
+  <div class="drop-body">
+    <span class="dl" onclick="go('home')">Главная<span class="dl-arr">→</span></span>
+    <span class="dl" onclick="go('cases')">Проекты<span class="dl-arr">→</span></span>
+    <span class="dl" onclick="go('services')">Услуги<span class="dl-arr">→</span></span>
+    <span class="dl" onclick="go('about')">Команда<span class="dl-arr">→</span></span>
+    <span class="dl" onclick="go('contacts')">Контакты<span class="dl-arr">→</span></span>
+    <div class="drop-foot">
+      <button class="btn btn--blue" style="justify-content: center;" onclick="go('contacts')">Направить запрос</button>
+      <a class="btn btn--line" style="justify-content: center;" href="files/shtab-presentation.pdf" download>Скачать презентацию</a>
+      <div id="dropContacts" style="margin-top: 14px; display: flex; flex-direction: column; gap: 16px;"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ================== ДАННЫЕ ==================
+   Источник: стратегия/39-реестр-кейсов-группы.md, 50-контент-пакет-для-вёрстки.md,
+   52-сверка-макета-с-фактами.md (репозиторий katrinfelix/shtab).                */
+
+var CONTACTS = {
+  mail: 'hello@example.ru',      // ЗАМЕНИТЬ на реальную почту
+  phone: '+7 XXX XXX-XX-XX'      // ЗАМЕНИТЬ на реальный телефон
+};
+
+/* Шоурил в первом экране: положите mp4 в img/ и впишите путь. */
+var SHOWREEL = { src: '', poster: '', length: '' };
+
+var GALLERY = [
+  { img: 'img/case-gorky.jpg', cap: 'Форум «Горький» · деловая программа', note: 'команда 10 человек' },
+  { img: 'img/case-tavrida.jpg', cap: 'Таврида.Арт · арт-школа продюсирования ИИ', note: '100 участников' }
+];
+
+var CASES = [
+  { n: '01', metric: '100', metricLabel: 'участников', type: 'образование', client: 'АНО «Таврида.Арт»',
+    title: 'Арт-школа продюсирования ИИ', meta: '100 участников · программа за 3 недели', img: 'img/case-tavrida.jpg',
+    lead: 'Программа с нуля: расписание, треки, кейсы, лекции, модерация и наставничество.',
+    facts: [['Участников', '100'], ['Программа', '3 недели'], ['Роль', 'полный цикл']],
+    task: 'Собрать программу под тему продюсирования с ИИ: не набор лекций, а логику, по которой участник доходит от идеи до собственного проекта.',
+    did: ['Расписание и треки', 'Отбор и брифинг спикеров', 'Кейсы и практика', 'Модерация сессий', 'Наставничество участников'] },
+  { n: '02', metric: '10', metricLabel: 'человек в команде', type: 'форум', client: 'Росмолодёжь.Предпринимай',
+    title: 'Форум «Горький»', meta: 'программа, спикеры, продюсирование', img: 'img/case-gorky.jpg',
+    lead: 'Программа форума, работа со спикерами, сбор команды и продюсирование площадки.',
+    facts: [['Команда', '10 человек'], ['Формат', 'форум'], ['Город', 'Нижний Новгород']],
+    task: 'Сделать форум, который держится на содержании, а не на сцене: программа, спикеры под аудиторию предпринимателей, ровная организация всех дней.',
+    did: ['Программа деловых блоков', 'Спикеры и подготовка выступлений', 'Сбор и координация команды', 'Организация на площадке'] },
+  { n: '03', metric: '40', metricLabel: 'человек за 4 дня', type: 'персонал', client: 'U24 · интенсив',
+    title: '«Архипелаг»', meta: 'сбор смены с нуля', img: '',
+    lead: 'Сбор команды под проект с нуля, включая линейный персонал.',
+    facts: [['В смене', '40 человек'], ['Срок сбора', '4 дня'], ['Роль', 'персонал']],
+    task: 'Найти, собрать и вывести полную смену в сжатый срок — вместе с линейным персоналом, которого обычно не хватает в последний момент.',
+    did: ['Подбор команды под задачи', 'Линейный персонал и координаторы', 'Брифинг и роли', 'Координация в дни интенсива'] },
+  { n: '04', metric: '40', metricLabel: 'проектов', type: 'образование', client: 'Минпромторг НО',
+    title: 'Школа медиаволонтёров', meta: 'наставничество, команда осталась у заказчика', img: '',
+    lead: 'Программа наставничества. Обученная команда осталась у заказчика.',
+    facts: [['Проектов', '40'], ['Формат', 'школа'], ['Результат', 'команда у заказчика']],
+    task: 'Не разовое обучение, а работающая команда внутри заказчика: люди, которые после школы ведут медианаправление сами.',
+    did: ['Программа и учебные модули', 'Наставничество по проектам', 'Практика на реальных задачах', 'Передача команды заказчику'] },
+  { n: '05', metric: '500+', metricLabel: 'участников', type: 'события', client: 'Ozon',
+    title: 'Серия городских мероприятий', meta: 'концепция, набор участников, шоу', img: '',
+    lead: 'Концепция серии, кампания набора участников, шоу-программа и призовой фонд.',
+    facts: [['Участников', '500+'], ['Формат', 'серия событий'], ['Роль', 'продюсирование']],
+    task: 'Собрать серию городских событий так, чтобы люди пришли: не только программа на площадке, но и кампания набора с понятной мотивацией.',
+    did: ['Концепция серии', 'Кампания набора участников', 'Шоу-программа', 'Призовой фонд и механика'] },
+  { n: '06', metric: '35', metricLabel: 'человек команда', type: 'церемонии', client: '«Тонус», зал «Юпитер»',
+    title: 'Юбилей сети', meta: '14 анимаций · 25 моделей · фильм', img: '',
+    lead: 'Сценарий, три заставки, четырнадцать анимаций, фильм, 3D и кастинг.',
+    facts: [['Команда', '35 человек'], ['Моделей', '25'], ['Анимаций', '14']],
+    task: 'Сделать юбилей сети событием с режиссурой и собственным визуальным языком, а не отчётным концертом с презентацией на экране.',
+    did: ['Сценарий и режиссура шоу', 'Заставки и анимации', 'Фильм и 3D-графика', 'Кастинг и работа с моделями'] },
+  { n: '07', metric: '15+', metricLabel: 'локаций', type: 'видео', client: 'Газпром недра',
+    title: 'Корпоративный контент', meta: 'съёмка на промышленных объектах', img: '',
+    lead: 'Съёмка на промышленных объектах: разведка локаций, две смены, монтаж.',
+    facts: [['Локаций', '15+'], ['Смен', '2'], ['Роль', 'продакшн']],
+    task: 'Снять контент на действующих промышленных объектах, где доступ ограничен, а график смены нельзя сдвинуть: подготовка решает больше самой съёмки.',
+    did: ['Разведка и согласование локаций', 'Планирование смен', 'Съёмка на объектах', 'Монтаж материалов'] }
+];
+
+/* мозаика: направления вперемешку с цифрами — приём u24 */
+var MOSAIC = [
+  { k: 'cat', t: 'Деловые форумы', d: 'программа, спикеры, модерация' },
+  { k: 'num', n: '500+', d: 'участников на серии мероприятий' },
+  { k: 'cat', t: 'Конференции и сессии', d: 'содержание и работа с залом' },
+  { k: 'cat', t: 'Образовательные интенсивы', d: 'школы, треки, наставничество' },
+  { k: 'dark', n: '4 дня', d: 'на вывод смены из 40 человек' },
+  { k: 'cat', t: 'Молодёжные форумы', d: 'программа и работа с участниками' },
+  { k: 'cat', t: 'Церемонии и юбилеи', d: 'сценарий, режиссура, шоу' },
+  { k: 'num', n: '3 недели', d: 'на разработку программы' },
+  { k: 'cat', t: 'Городские события', d: 'серии мероприятий, набор участников' },
+  { k: 'cat', t: 'Выставочные экспозиции', d: 'мультимедиа и интерактив' },
+  { k: 'dark', n: '7', d: 'специалистов в постоянном составе' },
+  { k: 'cat', t: 'Корпоративное видео', d: 'съёмка на объектах, фильмы и ролики' }
+];
+
+var SCOPE = [
+  'Концепция и смысловая программа', 'Разработка деловых и образовательных программ', 'Спикеры и модерация',
+  'Наставничество и обучение', 'Сценарий и режиссура', 'Подбор и вывод команды', 'Координаторы и хостес',
+  'Линейный персонал', 'Работа с участниками и регистрация', 'Подбор площадки и логистика',
+  'Мультимедиа и контент для экранов', 'Интерактивные стенды', 'Шоу-программа', 'Видеосъёмка и монтаж',
+  'Фото- и видеоотчёт', 'Призовой фонд и механики', 'Отчётные документы и закрывающие акты'
+];
+
+var RELIABILITY = [
+  { n: '1', d: 'руководитель проекта на всех этапах работ' },
+  { n: '3 дня', d: 'на концепцию и смету после получения задания' },
+  { n: '7', d: 'специалистов в постоянном составе' },
+  { n: '100%', d: 'отчётных документов в составе работ' }
+];
+
+var STEPS = [
+  { n: '01', title: 'Задача', time: '1 день', team: 'продюсер', text: 'Разбираем повод, аудиторию и площадку. Фиксируем, что считается результатом.', out: ['Протокол задачи', 'Вилка бюджета'] },
+  { n: '02', title: 'Концепция', time: '3 дня', team: 'продюсер, программный директор', text: 'Смысловая логика события: треки, блоки, роли спикеров. Смета — вместе с концепцией.', out: ['Концепция и схема', 'Смета'] },
+  { n: '03', title: 'Содержание', time: '1—2 недели', team: 'программный директор', text: 'Отбираем и брифуем спикеров, готовим практическую часть и модерацию.', out: ['Состав спикеров', 'Тайминг блоков'] },
+  { n: '04', title: 'Команда', time: 'от 4 дней', team: 'продюсер, координаторы', text: 'Подбираем и выводим смену: координаторы, хостес, техслужба, линейный персонал.', out: ['Состав смены', 'Роли и графики'] },
+  { n: '05', title: 'Площадка', time: '2—7 дней', team: 'технический координатор', text: 'Логистика, монтаж, контент для экранов и техническая сборка площадки.', out: ['Собранная площадка', 'Резервные сценарии'] },
+  { n: '06', title: 'Смена', time: 'по графику', team: 'продюсер, дежурный техник', text: 'Программа, участники, потоки и техника — в одной руке, весь период мероприятия.', out: ['Событие по тайму', 'Оперативные правки'] },
+  { n: '07', title: 'Отчётность', time: '5 дней', team: 'продюсер, продакшн', text: 'Съёмка и монтаж материалов, отчётные документы и закрывающие акты.', out: ['Отчётные материалы', 'Закрывающие документы'] }
+];
+
+var SERVICES = [
+  { n: '01', title: 'Форумы и конференции', text: 'Программа и спикеры, команда на площадке, работа с участниками, отчётность и закрывающие документы.' },
+  { n: '02', title: 'Персонал на площадку', text: 'Хостес, координаторы, техническая служба, линейный персонал. 40 человек за 4 дня. Ставки за смену.' },
+  { n: '03', title: 'Образовательные программы', text: 'Школы, интенсивы и наставничество. Обученная команда остаётся у заказчика.' },
+  { n: '04', title: 'Мультимедиа для экспозиций', text: 'Контент для экранов и медиафасадов, интерактивные стенды, 3D и видеомэппинг.' },
+  { n: '05', title: 'Фильмы и видеоролики', text: 'Имиджевые фильмы, ролики для найма и отчётности, съёмка на промышленных объектах.' },
+  { n: '06', title: 'Отчётность и сопровождение', text: 'Отчётные документы, закрывающие акты, фото- и видеоотчёт, материалы для коммуникаций.' }
+];
+
+/* Благодарственные письма. Положите сканы в img/letters/ и впишите путь в img.
+   Пока img пустой — карточка показывает заглушку с названием организации. */
+var LETTERS = [
+  { org: 'АНО «Таврида.Арт»', note: 'арт-школа продюсирования ИИ', img: '' },
+  { org: 'Росмолодёжь.Предпринимай', note: 'форум «Горький»', img: '' },
+  { org: 'Минпромторг НО', note: 'школа медиаволонтёров', img: '' },
+  { org: 'Ozon', note: 'серия городских мероприятий', img: '' }
+];
+
+/* Заказчики. Когда появятся логотипы — положите png/svg в img/logos/ и впишите путь в logo. */
+var CLIENTS = [
+  { name: 'АНО «Таврида.Арт»', logo: '' },
+  { name: 'Росмолодёжь.Предпринимай', logo: '' },
+  { name: 'Ozon', logo: '' },
+  { name: 'Минпромторг НО', logo: '' },
+  { name: 'Газпром недра', logo: '' },
+  { name: 'U24', logo: '' },
+  { name: '«Тонус»', logo: '' },
+  { name: 'Форум «Горький»', logo: '' }
+];
+var BRIEF = ['Повод', 'Дата', 'Город', 'Количество участников', 'KPI', 'Бюджет', 'Срок ответа'];
+var MARQUEE = ['задача', 'концепция', 'программа', 'спикеры', 'смета', 'команда', 'площадка', 'контент', 'репетиция', 'смена', 'съёмка', 'отчёт'];
+var NEXT3 = ['Отвечаем в течение дня и задаём уточняющие вопросы', 'За 3 дня возвращаем концепцию и смету', 'Проект ведёт один продюсер — до закрывающих документов'];
+var ABOUT_DO = ['Программу: треки, спикеры, модерация', 'Подбор и вывод команды на площадку', 'Организацию смены и работу с участниками', 'Мультимедиа, контент для экранов и съёмку', 'Отчётность и закрывающие документы'];
+var ABOUT_WHO = ['Федеральные АНО и институции развития', 'Региональные министерства', 'Промышленные и добывающие компании', 'Федеральный ритейл и сети', 'Образовательные и молодёжные организации'];
+
+/* ================== РЕНДЕР ================== */
+function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+function el(id) { return document.getElementById(id); }
+
+var mq = MARQUEE.map(function (w) { return '<span>' + w + '</span>'; }).join('<span style="padding:0 18px;color:#3a3f52;">/</span>');
+el('marquee').innerHTML = '<div style="display:flex;align-items:center;padding-right:18px;">' + mq + '</div><div style="display:flex;align-items:center;padding-right:18px;"><span style="padding:0 18px;color:#3a3f52;">/</span>' + mq + '</div>';
+
+el('showreel').innerHTML = SHOWREEL.src
+  ? '<video src="' + SHOWREEL.src + '" ' + (SHOWREEL.poster ? 'poster="' + SHOWREEL.poster + '" ' : '') + 'autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;"></video>'
+  : '<div style="width:100%;height:100%;display:flex;align-items:flex-end;padding:24px;background:linear-gradient(140deg,#16181D 0%,#1d2140 62%,#001AFF 200%);"><span style="font-size:13px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,.45);">видеоматериалы</span></div>';
+
+el('mosaic').innerHTML = MOSAIC.map(function (m) {
+  if (m.k === 'cat') {
+    return '<div class="tile tile--cat"><span class="tile-i">направление</span><div><div class="tile-t">' + esc(m.t) + '</div><div class="tile-d">' + esc(m.d) + '</div></div></div>';
+  }
+  var cls = m.k === 'dark' ? 'tile--dark' : 'tile--num';
+  return '<div class="tile ' + cls + '"><span class="tile-i" style="color:rgba(255,255,255,.5);">' + (m.k === 'dark' ? 'опыт' : 'масштаб') + '</span><div><div class="num">' + esc(m.n) + '</div><div class="tile-d">' + esc(m.d) + '</div></div></div>';
+}).join('');
+
+function card(c) {
+  var inner = c.img
+    ? '<img src="' + c.img + '" alt="' + esc(c.title) + '" loading="lazy">'
+    : '<div class="card-metric"><b>' + esc(c.metric) + '</b><span>' + esc(c.metricLabel) + '</span></div>';
+  return '<div class="card" onclick="openCase(\'' + c.n + '\')">' +
+    '<div class="card-shot">' + inner + '<span class="card-tag">' + esc(c.type) + '</span></div>' +
+    '<div class="card-body">' +
+      '<div class="card-client">' + esc(c.client) + '</div>' +
+      '<div class="card-title">' + esc(c.title) + '</div>' +
+      '<div class="card-meta">' + esc(c.meta) + '</div>' +
+      '<div class="card-more">Смотреть проект →</div>' +
+    '</div></div>';
+}
+el('featured').innerHTML = CASES.slice(0, 6).map(card).join('');
+
+var TYPES = ['все'].concat(CASES.map(function (c) { return c.type; }).filter(function (v, i, a) { return a.indexOf(v) === i; }));
+el('filters').innerHTML = TYPES.map(function (t, i) {
+  return '<span class="pill' + (i === 0 ? ' pill--on' : '') + '" onclick="filterCases(\'' + t + '\')">' + t + '</span>';
+}).join('');
+function filterCases(t) {
+  var pills = document.querySelectorAll('#filters .pill');
+  for (var i = 0; i < pills.length; i++) { pills[i].className = 'pill' + (pills[i].textContent === t ? ' pill--on' : ''); }
+  var list = CASES.filter(function (c) { return t === 'все' || c.type === t; });
+  el('caseGrid').innerHTML = list.map(card).join('');
+  el('caseCount').textContent = list.length;
+}
+filterCases('все');
+
+el('gallery').innerHTML = GALLERY.map(function (g) {
+  return '<figure class="shot" style="margin:0;"><img src="' + g.img + '" alt="' + esc(g.cap) + '" loading="lazy">' +
+    '<figcaption class="shot-cap"><span style="font-size:16px;">' + esc(g.cap) + '</span>' +
+    '<span class="small" style="color:var(--blue);white-space:nowrap;font-weight:600;">' + esc(g.note) + '</span></figcaption></figure>';
+}).join('');
+
+el('scope').innerHTML = SCOPE.map(function (x) { return '<span class="pill">' + esc(x) + '</span>'; }).join('');
+el('reliability').innerHTML = RELIABILITY.map(function (r) {
+  return '<div><div class="num" style="color:#fff;">' + esc(r.n) + '</div><div class="small" style="color:rgba(255,255,255,.6);margin-top:10px;">' + esc(r.d) + '</div></div>';
+}).join('');
+/* две ленты: логотип — картинка, если есть путь, иначе название текстом */
+function logoChip(c) {
+  var inner = c.logo ? '<img src="' + c.logo + '" alt="' + esc(c.name) + '" loading="lazy">' : esc(c.name);
+  return '<div class="logo-chip">' + inner + '</div>';
+}
+function logoRow(list) { return list.concat(list).map(logoChip).join(''); }
+el('clients1').innerHTML = logoRow(CLIENTS.slice(0, Math.ceil(CLIENTS.length / 2)));
+el('clients2').innerHTML = logoRow(CLIENTS.slice(Math.ceil(CLIENTS.length / 2)));
+el('letters').innerHTML = LETTERS.map(function (l) {
+  var inner = l.img
+    ? '<img src="' + l.img + '" alt="Благодарственное письмо: ' + esc(l.org) + '" loading="lazy">'
+    : '<span class="letter-empty">скан письма</span>';
+  return '<div class="letter"><div class="letter-img">' + inner + '</div>' +
+    '<div class="letter-cap"><b>' + esc(l.org) + '</b><span>' + esc(l.note) + '</span></div></div>';
+}).join('');
+
+el('services').innerHTML = SERVICES.map(function (s) {
+  return '<div style="background:var(--paper);border-radius:var(--r);padding:32px 28px;display:flex;flex-direction:column;gap:12px;">' +
+    '<span class="tile-i" style="color:var(--blue);">' + s.n + '</span>' +
+    '<div class="h3">' + esc(s.title) + '</div>' +
+    '<div class="small">' + esc(s.text) + '</div></div>';
+}).join('');
+el('briefFields').innerHTML = BRIEF.map(function (b, i) {
+  return '<div style="background:#fff;border-radius:14px;padding:20px 22px;"><span class="tile-i" style="color:var(--blue);">0' + (i + 1) + '</span><div style="font-size:17px;margin-top:8px;">' + esc(b) + '</div></div>';
+}).join('');
+el('aboutDo').innerHTML = ABOUT_DO.map(function (x) { return '<div style="padding:14px 0;border-bottom:1px solid var(--line);font-size:17px;">' + esc(x) + '</div>'; }).join('');
+el('aboutWho').innerHTML = ABOUT_WHO.map(function (x) { return '<div style="padding:14px 0;border-bottom:1px solid var(--line);font-size:17px;">' + esc(x) + '</div>'; }).join('');
+el('next3').innerHTML = NEXT3.map(function (x, i) {
+  return '<div style="display:flex;gap:12px;align-items:baseline;"><span class="tile-i" style="color:var(--blue);">0' + (i + 1) + '</span><span class="small" style="color:var(--ink);">' + esc(x) + '</span></div>';
+}).join('');
+el('budget').innerHTML = ['до 3 млн', '3—10 млн', '10+ млн'].map(function (b, i) {
+  return '<span class="pill' + (i === 1 ? ' pill--on' : '') + '" onclick="pickSeg(this)">' + b + '</span>';
+}).join('');
+
+/* контакты по сегментам — приём u24 */
+function contactBlocks(dark) {
+  var c = dark ? 'rgba(255,255,255,.45)' : 'var(--ink-40)';
+  return [['Госзаказчикам и институциям', CONTACTS.mail, 'mailto:'], ['Корпоративным клиентам', CONTACTS.mail, 'mailto:'], ['Телефон', CONTACTS.phone, 'tel:']].map(function (x) {
+    return '<div class="foot-col"><b style="color:' + c + ';">' + x[0] + '</b><a href="' + x[2] + x[1] + '">' + x[1] + '</a></div>';
+  }).join('');
+}
+el('contactCols').innerHTML = contactBlocks(false);
+el('dropContacts').innerHTML = contactBlocks(false);
+el('footContacts').innerHTML = contactBlocks(true) +
+  '<div class="foot-col"><b style="color:rgba(255,255,255,.45);">Офис</b><span style="font-size:17px;">Москва</span></div>';
+
+var step = 0, auto = true;
+function renderSteps() {
+  el('steps').innerHTML = STEPS.map(function (s, i) {
+    return '<div class="tstep' + (i === step ? ' on' : '') + '" onmouseenter="pickStep(' + i + ')" onclick="pickStep(' + i + ')">' +
+      '<div class="tstep-i">' + s.n + '</div><div class="tstep-n">' + esc(s.title) + '</div><div class="tstep-t">' + esc(s.time) + '</div></div>';
+  }).join('');
+  var s = STEPS[step];
+  el('stepDetail').innerHTML =
+    '<div><div class="tile-i" style="color:var(--blue);">' + s.n + ' · ' + esc(s.time) + ' · ' + esc(s.team) + '</div>' +
+    '<p class="lead" style="margin-top:12px;color:var(--ink);">' + esc(s.text) + '</p></div>' +
+    '<div class="pills">' + s.out.map(function (o) { return '<span class="pill">' + esc(o) + '</span>'; }).join('') + '</div>';
+}
+function pickStep(i) { step = i; auto = false; el('autoBtn').textContent = 'автопрокрутка отключена'; renderSteps(); }
+function toggleAuto() { auto = !auto; el('autoBtn').textContent = auto ? 'автопрокрутка включена' : 'автопрокрутка отключена'; }
+setInterval(function () { if (auto && page === 'home') { step = (step + 1) % STEPS.length; renderSteps(); } }, 4600);
+renderSteps();
+
+function openCase(n) {
+  var i = CASES.findIndex(function (c) { return c.n === n; });
+  var c = CASES[i], nx = CASES[(i + 1) % CASES.length];
+  var shot = c.img ? '<div class="shot" style="margin-top:40px;"><img src="' + c.img + '" alt="' + esc(c.title) + '" style="aspect-ratio:16/9;"></div>' : '';
+  el('p-case').innerHTML =
+    '<div class="sec"><div class="wrap">' +
+      '<span class="link" onclick="go(\'cases\')">← Все проекты</span>' +
+      '<div class="grid-2" style="gap:56px;align-items:start;margin-top:28px;">' +
+        '<div><span class="eyebrow">' + esc(c.client) + '</span>' +
+        '<h1 class="h1" style="max-width:16ch;">' + esc(c.title) + '</h1>' +
+        '<p class="lead" style="margin-top:20px;max-width:44ch;">' + esc(c.lead) + '</p></div>' +
+        '<div class="grid-3" style="gap:12px;">' + c.facts.map(function (f) {
+          return '<div class="tile tile--cat" style="min-height:120px;"><span class="tile-i">' + esc(f[0]) + '</span><div class="num" style="font-size:30px;">' + esc(f[1]) + '</div></div>';
+        }).join('') + '</div></div>' +
+      shot +
+      '<div class="grid-2" style="gap:56px;margin-top:48px;align-items:start;">' +
+        '<div><h2 class="h2" style="font-size:26px;">Задача</h2><p class="lead" style="margin-top:14px;">' + esc(c.task) + '</p></div>' +
+        '<div><h2 class="h2" style="font-size:26px;">Выполненные работы</h2><div style="margin-top:14px;">' +
+          c.did.map(function (d) { return '<div style="padding:13px 0;border-bottom:1px solid var(--line);font-size:17px;">' + esc(d) + '</div>'; }).join('') +
+        '</div></div></div>' +
+      '<div style="margin-top:56px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;">' +
+        '<div><span class="small">Следующий проект</span><div class="h2" style="font-size:26px;cursor:pointer;margin-top:6px;" onclick="openCase(\'' + nx.n + '\')">' + esc(nx.title) + ' →</div></div>' +
+        '<button class="btn btn--blue" onclick="go(\'contacts\')">Направить запрос</button>' +
+      '</div>' +
+    '</div></div>';
+  go('case');
+}
+
+var page = 'home';
+var PAGES = ['home', 'cases', 'case', 'services', 'about', 'contacts'];
+function toggleMenu(force) {
+  var d = el('drop'), b = el('burger');
+  var open = force === false ? false : !d.classList.contains('open');
+  d.classList.toggle('open', open);
+  b.classList.toggle('on', open);
+  b.setAttribute('aria-expanded', open ? 'true' : 'false');
+  document.documentElement.style.overflow = open ? 'hidden' : '';
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+document.addEventListener('keydown', function (e) { if (e.key === 'Escape') toggleMenu(false); });
+window.addEventListener('resize', function () { if (window.innerWidth > 1080) toggleMenu(false); });
+function go(p) {
+  toggleMenu(false);
+  page = p;
+  PAGES.forEach(function (x) { el('p-' + x).style.display = (x === p) ? 'block' : 'none'; });
+  if (p !== 'case') { location.hash = p === 'home' ? '' : p; }
+  window.scrollTo(0, 0);
+}
+if (location.hash) {
+  var h = location.hash.slice(1);
+  if (PAGES.indexOf(h) >= 0 && h !== 'case') { go(h); }
+}
+
+function pickSeg(e) {
+  var s = e.parentNode.children;
+  for (var i = 0; i < s.length; i++) { s[i].className = 'pill'; }
+  e.className = 'pill pill--on';
+}
+function send() {
+  var b = el('sendBtn');
+  if (b.dataset.busy) return;
+  b.dataset.busy = '1';
+  b.textContent = 'Отправляем…';
+  setTimeout(function () { b.textContent = 'Запрос принят — ответим в течение дня'; }, 1200);
+  setTimeout(function () { b.textContent = 'Отправить запрос'; b.dataset.busy = ''; }, 5000);
+}
+
+if (window.IntersectionObserver) {
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('rise'); io.unobserve(e.target); } });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.04 });
+  Array.prototype.forEach.call(document.querySelectorAll('#p-home .sec'), function (x) { io.observe(x); });
+}
+</script>
+</body>
+</html>
