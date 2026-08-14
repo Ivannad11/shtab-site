@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ivannad11.github.io/shtab-site/sitemap.xml

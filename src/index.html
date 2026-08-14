@@ -1,12 +1,20 @@
 <!DOCTYPE html>
-<html lang="ru"><head>
+<html lang="ru">
+<head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
+<title>ШТАБ — организация форумов, конференций и образовательных программ</title>
+<meta name="description" content="Организуем деловые, образовательные и молодёжные события: программа и спикеры, команда на площадке, мультимедиа, съёмка и отчётность. Проекты для Таврида.Арт, Росмолодёжи, Минпромторга, Ozon.">
 <meta name="theme-color" content="#001AFF">
 <!-- Мета для поисковика на собранных страницах ставит build.py, здесь только заглушки.
      Закрыть сайт от индексации: PUBLISH = false ниже в скрипте. -->
-
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ШТАБ">
+<meta property="og:title" content="ШТАБ — организация форумов, конференций и образовательных программ">
+<meta property="og:description" content="Программа и спикеры, команда на площадке, мультимедиа и отчётность. Концепция и смета за три рабочих дня.">
+<meta property="og:image" content="img/case-gorky.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23001AFF'/%3E%3Ctext x='32' y='44' font-family='Helvetica,Arial,sans-serif' font-size='34' font-weight='700' fill='%23fff' text-anchor='middle'%3E%D0%A8%3C/text%3E%3C/svg%3E">
 <style>
   :root {
@@ -312,34 +320,22 @@
     .logo i { display: none; }
   }
 </style>
-<title>ШТАБ — организация форумов, конференций и образовательных программ</title>
-<meta name="description" content="Организуем деловые, образовательные и молодёжные события: программа и спикеры, персонал на площадку, мультимедиа, съёмка и отчётность. Концепция и смета за три рабочих дня.">
-<link rel="canonical" href="https://ivannad11.github.io/shtab-site/">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="ШТАБ">
-<meta property="og:locale" content="ru_RU">
-<meta property="og:title" content="ШТАБ — организация форумов, конференций и образовательных программ">
-<meta property="og:description" content="Организуем деловые, образовательные и молодёжные события: программа и спикеры, персонал на площадку, мультимедиа, съёмка и отчётность. Концепция и смета за три рабочих дня.">
-<meta property="og:url" content="https://ivannad11.github.io/shtab-site/">
-<meta property="og:image" content="https://ivannad11.github.io/shtab-site/img/case-gorky.jpg">
-<meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"ШТАБ","alternateName":"SHTAB","url":"https://ivannad11.github.io/shtab-site/","description":"Организация деловых, образовательных и молодёжных мероприятий: программа и спикеры, персонал на площадку, мультимедиа, съёмка и отчётность.","telephone":"+7 930 819-76-46","email":"ivannad11@yandex.ru","address":{"@type":"PostalAddress","addressLocality":"Москва","addressCountry":"RU"},"areaServed":"RU","sameAs":["https://t.me/fillius_fortunae"]}</script>
 </head>
-<body data-page="home">
+<body>
 
 <!-- ШАПКА -->
 <div class="nav">
   <div class="wrap nav-in">
-    <a href="/shtab-site/" class="logo"><b>ШТАБ</b><i>SHTAB</i></a>
+    <a href="{{BASE}}/" class="logo"><b>ШТАБ</b><i>SHTAB</i></a>
     <div class="nav-links">
-      <a href="/shtab-site/" class="hide-md on" data-nav="home" aria-current="page">Главная</a>
-      <a href="/shtab-site/cases/" data-nav="cases">Проекты</a>
-      <a href="/shtab-site/services/" data-nav="services">Услуги</a>
-      <a href="/shtab-site/about/" class="hide-md" data-nav="about">Команда</a>
-      <a href="/shtab-site/contacts/" class="hide-md" data-nav="contacts">Контакты</a>
-      <a href="/shtab-site/contacts/" class="btn btn--blue" style="padding: 11px 20px; font-size: 15px;">Связаться</a>
+      <a href="{{BASE}}/" class="hide-md" data-nav="home">Главная</a>
+      <a href="{{BASE}}/cases/" data-nav="cases">Проекты</a>
+      <a href="{{BASE}}/services/" data-nav="services">Услуги</a>
+      <a href="{{BASE}}/about/" class="hide-md" data-nav="about">Команда</a>
+      <a href="{{BASE}}/contacts/" class="hide-md" data-nav="contacts">Контакты</a>
+      <a href="{{BASE}}/contacts/" class="btn btn--blue" style="padding: 11px 20px; font-size: 15px;" >Связаться</a>
     </div>
-    <button class="burger" id="burger" onclick="toggleMenu()" aria-label="Меню" aria-expanded="false"><i></i><i></i><i></i></button>
+    <button class="burger" id="burger" onclick="toggleMenu()" aria-label="Меню"><i></i><i></i><i></i></button>
   </div>
 </div>
 
@@ -347,7 +343,7 @@
 <div id="p-home">
 
   <!-- ГЕРОЙ -->
-  <div class="sec rise" style="padding: 72px 0 64px;">
+  <div class="sec" style="padding: 72px 0 64px;">
     <div class="wrap rise">
       <div class="grid-2" style="gap: 56px; align-items: center;">
         <div>
@@ -355,17 +351,17 @@
           <h1 class="h1">Реализуем мас<span style="color: var(--blue);">штаб</span>ные события</h1>
           <p class="lead" style="margin-top: 22px; max-width: 46ch;">Деловые форумы, конференции и образовательные программы для государственных институций и корпораций: содержательная программа, персонал на площадке, техническое обеспечение и отчётность.</p>
           <div style="display: flex; gap: 12px; margin-top: 32px; flex-wrap: wrap;">
-            <a href="/shtab-site/cases/" class="btn btn--blue">Смотреть проекты</a>
-            <a class="btn btn--line" href="/shtab-site/files/shtab-presentation.pdf" download="">Скачать презентацию</a>
+            <a href="{{BASE}}/cases/" class="btn btn--blue" >Смотреть проекты</a>
+            <a class="btn btn--line" href="files/shtab-presentation.pdf" download>Скачать презентацию</a>
           </div>
         </div>
-        <div id="showreel" class="shot" style="aspect-ratio: 16/9; background: var(--ink);"><div style="width:100%;height:100%;display:flex;align-items:flex-end;padding:24px;background:linear-gradient(140deg,#16181D 0%,#1d2140 62%,#001AFF 200%);"><span style="font-size:13px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,.45);">видеоматериалы</span></div></div>
+        <div id="showreel" class="shot" style="aspect-ratio: 16/9; background: var(--ink);"></div>
       </div>
     </div>
   </div>
 
   <!-- БЕГУЩАЯ ЛЕНТА -->
-  <div class="marquee"><div class="marquee-in" id="marquee"><div style="display:flex;align-items:center;padding-right:18px;"><span>задача</span><span style="padding:0 18px;color:#3a3f52;">/</span><span>концепция</span><span style="padding:0 18px;color:#3a3f52;">/</span><span>программа</span><span style="padding:0 18px;color:#3a3f52;">/</span><span>спикеры</span><span style="padding:0 18px;color:#3a3f52;">/</span><span>смета</span><span style="padding:0 18px;color:#3a3f52;">/</span><span>команда</span><span style="padding:0 18px;color:#3a3f52;">/</span><span>площадка</span><span style="padding:0 18px;color:#3a3f52;">/</span><span>контент</span><span style="padding:0 18px;color:#3a3f52;">/</span><span>репетиция</span><span style="padding:0 18px;color:#3a3f52;">/</span><span>смена</span><span style="padding:0 18px;color:#3a3f52;">/</span><span>съёмка</span><span style="padding:0 18px;color:#3a3f52;">/</span><span>отчёт</span></div><div style="display:flex;align-items:center;padding-right:18px;"><span style="padding:0 18px;color:#3a3f52;">/</span><span>задача</span><span style="padding:0 18px;color:#3a3f52;">/</span><span>концепция</span><span style="padding:0 18px;color:#3a3f52;">/</span><span>программа</span><span style="padding:0 18px;color:#3a3f52;">/</span><span>спикеры</span><span style="padding:0 18px;color:#3a3f52;">/</span><span>смета</span><span style="padding:0 18px;color:#3a3f52;">/</span><span>команда</span><span style="padding:0 18px;color:#3a3f52;">/</span><span>площадка</span><span style="padding:0 18px;color:#3a3f52;">/</span><span>контент</span><span style="padding:0 18px;color:#3a3f52;">/</span><span>репетиция</span><span style="padding:0 18px;color:#3a3f52;">/</span><span>смена</span><span style="padding:0 18px;color:#3a3f52;">/</span><span>съёмка</span><span style="padding:0 18px;color:#3a3f52;">/</span><span>отчёт</span></div></div></div>
+  <div class="marquee"><div class="marquee-in" id="marquee"></div></div>
 
   <!-- О КОМПАНИИ + МОЗАИКА -->
   <div class="sec">
@@ -380,7 +376,7 @@
           <p class="lead">Опыт работы с федеральными автономными некоммерческими организациями, региональными министерствами, промышленными компаниями и федеральными торговыми сетями.</p>
         </div>
       </div>
-      <div class="mosaic" id="mosaic"><div class="tile tile--cat"><span class="tile-i">направление</span><div><div class="tile-t">Деловые форумы</div><div class="tile-d">программа, спикеры, модерация</div></div></div><div class="tile tile--num"><span class="tile-i" style="color:rgba(255,255,255,.5);">масштаб</span><div><div class="num">500+</div><div class="tile-d">участников на серии мероприятий</div></div></div><div class="tile tile--cat"><span class="tile-i">направление</span><div><div class="tile-t">Конференции и сессии</div><div class="tile-d">содержание и работа с залом</div></div></div><div class="tile tile--cat"><span class="tile-i">направление</span><div><div class="tile-t">Образовательные интенсивы</div><div class="tile-d">школы, треки, наставничество</div></div></div><div class="tile tile--dark"><span class="tile-i" style="color:rgba(255,255,255,.5);">опыт</span><div><div class="num">4 дня</div><div class="tile-d">на вывод смены из 40 человек</div></div></div><div class="tile tile--cat"><span class="tile-i">направление</span><div><div class="tile-t">Молодёжные форумы</div><div class="tile-d">программа и работа с участниками</div></div></div><div class="tile tile--cat"><span class="tile-i">направление</span><div><div class="tile-t">Церемонии и юбилеи</div><div class="tile-d">сценарий, режиссура, шоу</div></div></div><div class="tile tile--num"><span class="tile-i" style="color:rgba(255,255,255,.5);">масштаб</span><div><div class="num">3 недели</div><div class="tile-d">на разработку программы</div></div></div><div class="tile tile--cat"><span class="tile-i">направление</span><div><div class="tile-t">Городские события</div><div class="tile-d">серии мероприятий, набор участников</div></div></div><div class="tile tile--cat"><span class="tile-i">направление</span><div><div class="tile-t">Выставочные экспозиции</div><div class="tile-d">мультимедиа и интерактив</div></div></div><div class="tile tile--dark"><span class="tile-i" style="color:rgba(255,255,255,.5);">опыт</span><div><div class="num">7</div><div class="tile-d">специалистов в постоянном составе</div></div></div><div class="tile tile--cat"><span class="tile-i">направление</span><div><div class="tile-t">Корпоративное видео</div><div class="tile-d">съёмка на объектах, фильмы и ролики</div></div></div></div>
+      <div class="mosaic" id="mosaic"></div>
     </div>
   </div>
 
@@ -392,9 +388,9 @@
           <span class="eyebrow">проекты</span>
           <h2 class="h2">Последние проекты</h2>
         </div>
-        <a href="/shtab-site/cases/" class="link">Все проекты →</a>
+        <a href="{{BASE}}/cases/" class="link">Все проекты →</a>
       </div>
-      <div id="featured" class="grid-3"><a class="card" href="/shtab-site/cases/art-shkola-tavrida/" data-type="образование"><div class="card-shot"><img src="/shtab-site/img/case-tavrida.jpg" alt="Арт-школа продюсирования ИИ" loading="lazy"><span class="card-tag">образование</span></div><div class="card-body"><div class="card-client">АНО «Таврида.Арт»</div><div class="card-title">Арт-школа продюсирования ИИ</div><div class="card-meta">100 участников · программа за 3 недели</div><div class="card-more">Смотреть проект →</div></div></a><a class="card" href="/shtab-site/cases/forum-gorky/" data-type="форум"><div class="card-shot"><img src="/shtab-site/img/case-gorky.jpg" alt="Форум «Горький»" loading="lazy"><span class="card-tag">форум</span></div><div class="card-body"><div class="card-client">Росмолодёжь.Предпринимай</div><div class="card-title">Форум «Горький»</div><div class="card-meta">программа, спикеры, продюсирование</div><div class="card-more">Смотреть проект →</div></div></a><a class="card" href="/shtab-site/cases/arhipelag/" data-type="персонал"><div class="card-shot"><img src="/shtab-site/img/arhipelag-1.jpg" alt="«Архипелаг»" loading="lazy"><span class="card-tag">персонал</span></div><div class="card-body"><div class="card-client">U24 · интенсив</div><div class="card-title">«Архипелаг»</div><div class="card-meta">сбор смены с нуля</div><div class="card-more">Смотреть проект →</div></div></a><a class="card" href="/shtab-site/cases/shkola-mediavolonterov/" data-type="образование"><div class="card-shot"><div class="card-metric"><b>40</b><span>проектов</span></div><span class="card-tag">образование</span></div><div class="card-body"><div class="card-client">Минпромторг НО</div><div class="card-title">Школа медиаволонтёров</div><div class="card-meta">наставничество, команда осталась у заказчика</div><div class="card-more">Смотреть проект →</div></div></a><a class="card" href="/shtab-site/cases/gorodskie-meropriyatiya-ozon/" data-type="события"><div class="card-shot"><div class="card-metric"><b>500+</b><span>участников</span></div><span class="card-tag">события</span></div><div class="card-body"><div class="card-client">Ozon</div><div class="card-title">Серия городских мероприятий</div><div class="card-meta">концепция, набор участников, шоу</div><div class="card-more">Смотреть проект →</div></div></a><a class="card" href="/shtab-site/cases/yubiley-tonus/" data-type="церемонии"><div class="card-shot"><div class="card-metric"><b>35</b><span>человек команда</span></div><span class="card-tag">церемонии</span></div><div class="card-body"><div class="card-client">«Тонус», зал «Юпитер»</div><div class="card-title">Юбилей сети</div><div class="card-meta">14 анимаций · 25 моделей · фильм</div><div class="card-more">Смотреть проект →</div></div></a></div>
+      <div id="featured" class="grid-3"></div>
     </div>
   </div>
 
@@ -408,7 +404,7 @@
         </div>
         <span class="small hide-md">листайте вбок · нажмите, чтобы увеличить</span>
       </div>
-      <div id="gallery" class="hstrip"><figure class="shot" style="margin:0;cursor:zoom-in;" onclick="lbOpen('site',0)" tabindex="0" role="button"><img src="/shtab-site/img/case-gorky.jpg" alt="Форум «Горький» · деловая программа" loading="lazy"><figcaption class="shot-cap"><span style="font-size:16px;">Форум «Горький» · деловая программа</span><span class="small" style="color:var(--blue);white-space:nowrap;font-weight:600;">команда 10 человек</span></figcaption></figure><figure class="shot" style="margin:0;cursor:zoom-in;" onclick="lbOpen('site',1)" tabindex="0" role="button"><img src="/shtab-site/img/case-tavrida.jpg" alt="Таврида.Арт · арт-школа продюсирования ИИ" loading="lazy"><figcaption class="shot-cap"><span style="font-size:16px;">Таврида.Арт · арт-школа продюсирования ИИ</span><span class="small" style="color:var(--blue);white-space:nowrap;font-weight:600;">100 участников</span></figcaption></figure><figure class="shot" style="margin:0;cursor:zoom-in;" onclick="lbOpen('site',2)" tabindex="0" role="button"><img src="/shtab-site/img/tavrida-3.jpg" alt="Таврида.Арт · проектная работа в куполе" loading="lazy"><figcaption class="shot-cap"><span style="font-size:16px;">Таврида.Арт · проектная работа в куполе</span><span class="small" style="color:var(--blue);white-space:nowrap;font-weight:600;">программа за 3 недели</span></figcaption></figure><figure class="shot" style="margin:0;cursor:zoom-in;" onclick="lbOpen('site',3)" tabindex="0" role="button"><img src="/shtab-site/img/gorky-2.jpg" alt="Форум «Горький» · блок «Опыт предпринимателя»" loading="lazy"><figcaption class="shot-cap"><span style="font-size:16px;">Форум «Горький» · блок «Опыт предпринимателя»</span><span class="small" style="color:var(--blue);white-space:nowrap;font-weight:600;">спикеры и модерация</span></figcaption></figure><figure class="shot" style="margin:0;cursor:zoom-in;" onclick="lbOpen('site',4)" tabindex="0" role="button"><img src="/shtab-site/img/arhipelag-1.jpg" alt="«Архипелаг» · подготовка площадки" loading="lazy"><figcaption class="shot-cap"><span style="font-size:16px;">«Архипелаг» · подготовка площадки</span><span class="small" style="color:var(--blue);white-space:nowrap;font-weight:600;">смена за 4 дня</span></figcaption></figure></div>
+      <div id="gallery" class="hstrip"></div>
     </div>
   </div>
 
@@ -422,8 +418,8 @@
         </div>
         <p class="lead">Обеспечиваем полный состав работ по мероприятию: разработка программы, подбор спикеров, вывод персонала, техническое сопровождение площадки, производство контента и отчётная документация.</p>
       </div>
-      <div id="scope" class="pills"><span class="pill">Концепция и смысловая программа</span><span class="pill">Разработка деловых и образовательных программ</span><span class="pill">Спикеры и модерация</span><span class="pill">Наставничество и обучение</span><span class="pill">Сценарий и режиссура</span><span class="pill">Подбор и вывод команды</span><span class="pill">Координаторы и хостес</span><span class="pill">Линейный персонал</span><span class="pill">Работа с участниками и регистрация</span><span class="pill">Подбор площадки и логистика</span><span class="pill">Мультимедиа и контент для экранов</span><span class="pill">Интерактивные стенды</span><span class="pill">Шоу-программа</span><span class="pill">Видеосъёмка и монтаж</span><span class="pill">Фото- и видеоотчёт</span><span class="pill">Призовой фонд и механики</span><span class="pill">Отчётные документы и закрывающие акты</span></div>
-      <div style="margin-top: 32px;"><a href="/shtab-site/services/" class="link">Подробно об услугах →</a></div>
+      <div id="scope" class="pills"></div>
+      <div style="margin-top: 32px;"><a href="{{BASE}}/services/" class="link">Подробно об услугах →</a></div>
     </div>
   </div>
 
@@ -437,7 +433,7 @@
         </div>
         <p class="lead" style="color: rgba(255,255,255,.7);">Руководитель проекта отвечает за смету, исполнителей, площадку и отчётность — от согласования задания до передачи закрывающих документов. Заказчик ведёт работу через одного человека, а не через несколько подрядчиков.</p>
       </div>
-      <div class="stats" id="reliability"><div><div class="num" style="color:#fff;">1</div><div class="small" style="color:rgba(255,255,255,.6);margin-top:10px;">руководитель проекта на всех этапах работ</div></div><div><div class="num" style="color:#fff;">3 дня</div><div class="small" style="color:rgba(255,255,255,.6);margin-top:10px;">на концепцию и смету после получения задания</div></div><div><div class="num" style="color:#fff;">7</div><div class="small" style="color:rgba(255,255,255,.6);margin-top:10px;">специалистов в постоянном составе</div></div><div><div class="num" style="color:#fff;">100%</div><div class="small" style="color:rgba(255,255,255,.6);margin-top:10px;">отчётных документов в составе работ</div></div></div>
+      <div class="stats" id="reliability"></div>
     </div>
   </div>
 
@@ -449,10 +445,10 @@
           <span class="eyebrow">процесс</span>
           <h2 class="h2">Этапы работы</h2>
         </div>
-        <span id="autoBtn" class="small" style="cursor: pointer;" onclick="toggleAuto()" tabindex="0" role="button">автопрокрутка включена</span>
+        <span id="autoBtn" class="small" style="cursor: pointer;" onclick="toggleAuto()">автопрокрутка включена</span>
       </div>
-      <div class="track" id="steps"><div class="tstep" onmouseenter="pickStep(0)" onclick="pickStep(0)" tabindex="0" role="button"><div class="tstep-i">01</div><div class="tstep-n">Задача</div><div class="tstep-t">1 день</div></div><div class="tstep on" onmouseenter="pickStep(1)" onclick="pickStep(1)" tabindex="0" role="button"><div class="tstep-i">02</div><div class="tstep-n">Концепция</div><div class="tstep-t">3 дня</div></div><div class="tstep" onmouseenter="pickStep(2)" onclick="pickStep(2)" tabindex="0" role="button"><div class="tstep-i">03</div><div class="tstep-n">Содержание</div><div class="tstep-t">1—2 недели</div></div><div class="tstep" onmouseenter="pickStep(3)" onclick="pickStep(3)" tabindex="0" role="button"><div class="tstep-i">04</div><div class="tstep-n">Команда</div><div class="tstep-t">от 4 дней</div></div><div class="tstep" onmouseenter="pickStep(4)" onclick="pickStep(4)" tabindex="0" role="button"><div class="tstep-i">05</div><div class="tstep-n">Площадка</div><div class="tstep-t">2—7 дней</div></div><div class="tstep" onmouseenter="pickStep(5)" onclick="pickStep(5)" tabindex="0" role="button"><div class="tstep-i">06</div><div class="tstep-n">Смена</div><div class="tstep-t">по графику</div></div><div class="tstep" onmouseenter="pickStep(6)" onclick="pickStep(6)" tabindex="0" role="button"><div class="tstep-i">07</div><div class="tstep-n">Отчётность</div><div class="tstep-t">5 дней</div></div></div>
-      <div id="stepDetail" class="grid-2" style="gap: 40px; margin-top: 32px; align-items: start;"><div><div class="tile-i" style="color:var(--blue);">02 · 3 дня · продюсер, программный директор</div><p class="lead" style="margin-top:12px;color:var(--ink);">Смысловая логика события: треки, блоки, роли спикеров. Смета — вместе с концепцией.</p></div><div class="pills"><span class="pill">Концепция и схема</span><span class="pill">Смета</span></div></div>
+      <div class="track" id="steps"></div>
+      <div id="stepDetail" class="grid-2" style="gap: 40px; margin-top: 32px; align-items: start;"></div>
     </div>
   </div>
 
@@ -466,7 +462,7 @@
         </div>
         <span class="small hide-md">отзывы заказчиков по итогам работ</span>
       </div>
-      <div id="letters" class="letters"><div class="letter"><div class="letter-img"><span class="letter-empty">скан письма</span></div><div class="letter-cap"><b>АНО «Таврида.Арт»</b><span>арт-школа продюсирования ИИ</span></div></div><div class="letter"><div class="letter-img"><span class="letter-empty">скан письма</span></div><div class="letter-cap"><b>Росмолодёжь.Предпринимай</b><span>форум «Горький»</span></div></div><div class="letter"><div class="letter-img"><span class="letter-empty">скан письма</span></div><div class="letter-cap"><b>Минпромторг НО</b><span>школа медиаволонтёров</span></div></div><div class="letter"><div class="letter-img"><span class="letter-empty">скан письма</span></div><div class="letter-cap"><b>Ozon</b><span>серия городских мероприятий</span></div></div></div>
+      <div id="letters" class="letters"></div>
     </div>
   </div>
 
@@ -480,8 +476,8 @@
         </div>
       </div>
       <div class="logos">
-        <div class="logo-row" id="clients1"><div class="logo-chip">АНО «Таврида.Арт»</div><div class="logo-chip">Росмолодёжь.Предпринимай</div><div class="logo-chip">Ozon</div><div class="logo-chip">Минпромторг НО</div><div class="logo-chip">АНО «Таврида.Арт»</div><div class="logo-chip">Росмолодёжь.Предпринимай</div><div class="logo-chip">Ozon</div><div class="logo-chip">Минпромторг НО</div></div>
-        <div class="logo-row logo-row--back" id="clients2"><div class="logo-chip">U24</div><div class="logo-chip">«Тонус»</div><div class="logo-chip">Форум «Горький»</div><div class="logo-chip">U24</div><div class="logo-chip">«Тонус»</div><div class="logo-chip">Форум «Горький»</div></div>
+        <div class="logo-row" id="clients1"></div>
+        <div class="logo-row logo-row--back" id="clients2"></div>
       </div>
     </div>
   </div>
@@ -495,8 +491,8 @@
           <p class="lead" style="color: rgba(255,255,255,.78); margin-top: 14px;">Для предварительного расчёта достаточно повода, даты, города и количества участников.</p>
         </div>
         <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-          <a href="/shtab-site/contacts/" class="btn" style="background: #fff; color: var(--blue);">Направить запрос</a>
-          <a class="btn btn--ghost" href="/shtab-site/files/shtab-presentation.pdf" download="">Презентация PDF</a>
+          <a href="{{BASE}}/contacts/" class="btn" style="background: #fff; color: var(--blue);" >Направить запрос</a>
+          <a class="btn btn--ghost" href="files/shtab-presentation.pdf" download>Презентация PDF</a>
         </div>
       </div>
     </div>
@@ -505,14 +501,136 @@
 </div>
 
 <!-- ================= ПРОЕКТЫ ================= -->
+<div id="p-cases" style="display: none;">
+  <div class="sec">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">проекты</span>
+          <h1 class="h1">Последние проекты</h1>
+        </div>
+      </div>
+      <div id="filters" class="pills" style="margin-bottom: 40px;"></div>
+      <div id="caseGrid" class="grid-3"></div>
+    </div>
+  </div>
+</div>
 
 <!-- ================= ПРОЕКТ ВНУТРИ ================= -->
+<div id="p-case" style="display: none;"></div>
 
 <!-- ================= УСЛУГИ ================= -->
+<div id="p-services" style="display: none;">
+  <div class="sec">
+    <div class="wrap">
+      <span class="eyebrow">услуги</span>
+      <h1 class="h1" style="max-width: 18ch;">Что делаем</h1>
+      <p class="lead" style="margin-top: 20px; max-width: 56ch;">Полный цикл работ по мероприятию: содержательная часть, персонал, площадка, производство контента и отчётность.</p>
+      <div id="services" class="grid-3" style="margin-top: 48px;"></div>
+    </div>
+  </div>
+  <div class="sec sec--paper">
+    <div class="wrap">
+      <div class="grid-2" style="gap: 56px; align-items: start;">
+        <div>
+          <span class="eyebrow">бриф</span>
+          <h2 class="h2" style="max-width: 22ch;">Данные для подготовки сметы</h2>
+          <p class="lead" style="margin-top: 18px;">Семи параметров достаточно для предварительного расчёта. Соберём их на первом созвоне — оставьте имя и телефон, остальное уточним в рабочем порядке.</p>
+          <a href="{{BASE}}/contacts/" class="btn btn--blue" style="margin-top: 26px;" >Оставить заявку</a>
+        </div>
+        <div id="briefFields" class="grid-2" style="gap: 12px;"></div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- ================= КОМАНДА ================= -->
+<div id="p-about" style="display: none;">
+  <div class="sec">
+    <div class="wrap">
+      <span class="eyebrow">команда</span>
+      <h1 class="h1" style="max-width: 20ch;">Команда проекта</h1>
+      <p class="lead" style="margin-top: 20px; max-width: 54ch;">Постоянный состав — 7 специалистов: продюсирование, программная дирекция, работа на площадке, производство контента. Под каждый проект команда расширяется в соответствии с задачей.</p>
+      <div class="grid-3" style="margin-top: 48px;">
+        <div>
+          <div class="shot" style="background: var(--paper); aspect-ratio: 3/4; display: flex; align-items: center; justify-content: center; color: var(--ink-40); font-size: 46px; font-weight: 300;">К</div>
+          <div class="card-body"><div class="card-title">Катерина</div><div class="card-meta">продюсер полного цикла</div></div>
+        </div>
+        <div>
+          <div class="shot" style="background: var(--blue); aspect-ratio: 3/4; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 46px; font-weight: 300;">+6</div>
+          <div class="card-body"><div class="card-title">Постоянный состав</div><div class="card-meta">программа, площадка, продакшн</div></div>
+        </div>
+        <div>
+          <div class="shot" style="background: var(--ink); aspect-ratio: 3/4; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 46px; font-weight: 300;">40</div>
+          <div class="card-body"><div class="card-title">Смена под проект</div><div class="card-meta">координаторы, хостес, линейный персонал — сбор за 4 дня</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sec sec--paper">
+    <div class="wrap">
+      <div class="grid-2" style="gap: 56px;">
+        <div>
+          <h2 class="h2" style="font-size: 28px;">Состав работ</h2>
+          <div id="aboutDo" style="margin-top: 24px;"></div>
+        </div>
+        <div>
+          <h2 class="h2" style="font-size: 28px;">Категории заказчиков</h2>
+          <div id="aboutWho" style="margin-top: 24px;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- ================= КОНТАКТЫ ================= -->
+<div id="p-contacts" style="display: none;">
+  <div class="sec">
+    <div class="wrap">
+      <div class="grid-2" style="gap: 64px; align-items: start;">
+        <div>
+          <span class="eyebrow">контакты</span>
+          <h1 class="h1" style="max-width: 16ch;">Запрос на организацию мероприятия</h1>
+          <p class="lead" style="margin-top: 18px; max-width: 44ch;">Оставьте имя и телефон — перезвоним в течение рабочего дня и зададим уточняющие вопросы. Или позвоните сами.</p>
+          <form id="leadForm" novalidate style="display: flex; flex-direction: column; gap: 18px; margin-top: 36px; max-width: 560px;">
+            <div class="grid-2" style="gap: 16px;">
+              <div>
+                <label class="fld-l" for="leadName">Имя</label>
+                <input class="fld" id="leadName" name="name" type="text" autocomplete="name" placeholder="Как к вам обращаться">
+              </div>
+              <div>
+                <label class="fld-l" for="leadPhone">Телефон</label>
+                <input class="fld" id="leadPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 900 000-00-00">
+              </div>
+            </div>
+            <label class="agree">
+              <input type="checkbox" id="leadAgree" checked>
+              <span class="small">Отправляя заявку, соглашаюсь на <a href="{{BASE}}/privacy/">обработку персональных данных</a></span>
+            </label>
+            <div id="leadNote" class="form-note" style="display: none;" role="status" aria-live="polite"></div>
+            <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+              <button id="sendBtn" class="btn btn--blue" type="submit">Оставить заявку</button>
+              <a id="callBtn" class="btn btn--line" href="#">Позвонить</a>
+              <a id="tgBtn" class="btn btn--line" style="display: none;" href="#" target="_blank" rel="noopener">Написать в Telegram</a>
+            </div>
+          </form>
+        </div>
+        <div style="background: var(--paper); border-radius: 24px; padding: 40px; display: flex; flex-direction: column; gap: 30px;">
+          <div id="contactCols" style="display: flex; flex-direction: column; gap: 26px;"></div>
+          <div style="border-top: 1px solid var(--line); padding-top: 26px;">
+            <span class="fld-l">Штаб</span>
+            <div style="font-size: 18px;">Москва</div>
+            <div class="small">работаем по всей России</div>
+          </div>
+          <div style="border-top: 1px solid var(--line); padding-top: 26px;">
+            <span class="fld-l">Порядок работы</span>
+            <div id="next3" style="display: flex; flex-direction: column; gap: 12px; margin-top: 6px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- ФУТЕР -->
 <div style="background: var(--ink); color: #fff; padding: 64px 0 40px;">
@@ -521,44 +639,44 @@
       <div>
         <div class="logo" style="color: #fff;"><b style="font-size: 26px;">ШТАБ</b><i>SHTAB</i></div>
         <p class="lead" style="color: rgba(255,255,255,.62); margin-top: 16px; max-width: 38ch;">Организация форумов, конференций и образовательных программ. Программа, персонал, площадка, отчётность.</p>
-        <a class="btn btn--ghost" style="margin-top: 24px;" href="/shtab-site/files/shtab-presentation.pdf" download="">Скачать презентацию</a>
+        <a class="btn btn--ghost" style="margin-top: 24px;" href="files/shtab-presentation.pdf" download>Скачать презентацию</a>
       </div>
-      <div class="grid-2" style="gap: 32px;" id="footContacts"><div class="foot-col"><b style="color:rgba(255,255,255,.45);">Госзаказчикам и институциям</b><a href="mailto:ivannad11@yandex.ru">ivannad11@yandex.ru</a></div><div class="foot-col"><b style="color:rgba(255,255,255,.45);">Корпоративным клиентам</b><a href="mailto:ivannad11@yandex.ru">ivannad11@yandex.ru</a></div><div class="foot-col"><b style="color:rgba(255,255,255,.45);">Телефон</b><a href="tel:+79308197646">+7 930 819-76-46</a></div><div class="foot-col"><b style="color:rgba(255,255,255,.45);">Telegram</b><a href="https://t.me/fillius_fortunae">@fillius_fortunae</a></div><div class="foot-col"><b style="color:rgba(255,255,255,.45);">Офис</b><span style="font-size:17px;">Москва</span></div></div>
+      <div class="grid-2" style="gap: 32px;" id="footContacts"></div>
     </div>
 
     <!-- карта сайта: все адреса доступны с любой страницы, в том числе поисковику -->
     <nav class="foot-map" aria-label="Разделы сайта">
       <div>
         <b>Разделы</b>
-        <a href="/shtab-site/">Главная</a>
-        <a href="/shtab-site/cases/">Проекты</a>
-        <a href="/shtab-site/services/">Услуги</a>
-        <a href="/shtab-site/about/">Команда</a>
-        <a href="/shtab-site/contacts/">Контакты</a>
+        <a href="{{BASE}}/">Главная</a>
+        <a href="{{BASE}}/cases/">Проекты</a>
+        <a href="{{BASE}}/services/">Услуги</a>
+        <a href="{{BASE}}/about/">Команда</a>
+        <a href="{{BASE}}/contacts/">Контакты</a>
       </div>
       <div>
         <b>Что делаем</b>
-        <a href="/shtab-site/services/">Форумы и конференции</a>
-        <a href="/shtab-site/services/">Персонал на площадку</a>
-        <a href="/shtab-site/services/">Образовательные программы</a>
-        <a href="/shtab-site/services/">Мультимедиа для экспозиций</a>
-        <a href="/shtab-site/services/">Фильмы и видеоролики</a>
+        <a href="{{BASE}}/services/">Форумы и конференции</a>
+        <a href="{{BASE}}/services/">Персонал на площадку</a>
+        <a href="{{BASE}}/services/">Образовательные программы</a>
+        <a href="{{BASE}}/services/">Мультимедиа для экспозиций</a>
+        <a href="{{BASE}}/services/">Фильмы и видеоролики</a>
       </div>
       <div>
         <b>Проекты</b>
-        <a href="/shtab-site/cases/art-shkola-tavrida/">Арт-школа продюсирования ИИ</a>
-        <a href="/shtab-site/cases/forum-gorky/">Форум «Горький»</a>
-        <a href="/shtab-site/cases/arhipelag/">«Архипелаг»</a>
-        <a href="/shtab-site/cases/shkola-mediavolonterov/">Школа медиаволонтёров</a>
-        <a href="/shtab-site/cases/gorodskie-meropriyatiya-ozon/">Серия городских мероприятий</a>
-        <a href="/shtab-site/cases/yubiley-tonus/">Юбилей сети</a>
+        <a href="{{BASE}}/cases/art-shkola-tavrida/">Арт-школа продюсирования ИИ</a>
+        <a href="{{BASE}}/cases/forum-gorky/">Форум «Горький»</a>
+        <a href="{{BASE}}/cases/arhipelag/">«Архипелаг»</a>
+        <a href="{{BASE}}/cases/shkola-mediavolonterov/">Школа медиаволонтёров</a>
+        <a href="{{BASE}}/cases/gorodskie-meropriyatiya-ozon/">Серия городских мероприятий</a>
+        <a href="{{BASE}}/cases/yubiley-tonus/">Юбилей сети</a>
       </div>
     </nav>
 
     <div style="border-top: 1px solid rgba(255,255,255,.14); margin-top: 40px; padding-top: 24px; display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap;">
       <span class="small" style="color: rgba(255,255,255,.45);">© 2026 ШТАБ · программы и люди для деловых мероприятий</span>
       <div style="display: flex; gap: 24px; flex-wrap: wrap;">
-        <a href="/shtab-site/privacy/" class="small" style="color: rgba(255,255,255,.45);">Обработка персональных данных</a>
+        <a href="{{BASE}}/privacy/" class="small" style="color: rgba(255,255,255,.45);">Обработка персональных данных</a>
       </div>
     </div>
   </div>
@@ -576,19 +694,19 @@
 <!-- МОБИЛЬНОЕ МЕНЮ -->
 <div class="drop" id="drop">
   <div class="drop-top">
-    <a href="/shtab-site/" class="logo"><b>ШТАБ</b><i>SHTAB</i></a>
+    <a href="{{BASE}}/" class="logo"><b>ШТАБ</b><i>SHTAB</i></a>
     <button class="burger on" onclick="toggleMenu(false)" aria-label="Закрыть меню"><i></i><i></i><i></i></button>
   </div>
   <div class="drop-body">
-    <a href="/shtab-site/" class="dl on" data-nav="home" aria-current="page">Главная<span class="dl-arr">→</span></a>
-    <a href="/shtab-site/cases/" class="dl" data-nav="cases">Проекты<span class="dl-arr">→</span></a>
-    <a href="/shtab-site/services/" class="dl" data-nav="services">Услуги<span class="dl-arr">→</span></a>
-    <a href="/shtab-site/about/" class="dl" data-nav="about">Команда<span class="dl-arr">→</span></a>
-    <a href="/shtab-site/contacts/" class="dl" data-nav="contacts">Контакты<span class="dl-arr">→</span></a>
+    <a href="{{BASE}}/" class="dl" data-nav="home">Главная<span class="dl-arr">→</a></span>
+    <a href="{{BASE}}/cases/" class="dl" data-nav="cases">Проекты<span class="dl-arr">→</a></span>
+    <a href="{{BASE}}/services/" class="dl" data-nav="services">Услуги<span class="dl-arr">→</a></span>
+    <a href="{{BASE}}/about/" class="dl" data-nav="about">Команда<span class="dl-arr">→</a></span>
+    <a href="{{BASE}}/contacts/" class="dl" data-nav="contacts">Контакты<span class="dl-arr">→</a></span>
     <div class="drop-foot">
-      <a href="/shtab-site/contacts/" class="btn btn--blue" style="justify-content: center;">Направить запрос</a>
-      <a class="btn btn--line" style="justify-content: center;" href="/shtab-site/files/shtab-presentation.pdf" download="">Скачать презентацию</a>
-      <div id="dropContacts" style="margin-top: 14px; display: flex; flex-direction: column; gap: 16px;"><div class="foot-col"><b style="color:var(--ink-40);">Госзаказчикам и институциям</b><a href="mailto:ivannad11@yandex.ru">ivannad11@yandex.ru</a></div><div class="foot-col"><b style="color:var(--ink-40);">Корпоративным клиентам</b><a href="mailto:ivannad11@yandex.ru">ivannad11@yandex.ru</a></div><div class="foot-col"><b style="color:var(--ink-40);">Телефон</b><a href="tel:+79308197646">+7 930 819-76-46</a></div><div class="foot-col"><b style="color:var(--ink-40);">Telegram</b><a href="https://t.me/fillius_fortunae">@fillius_fortunae</a></div></div>
+      <a href="{{BASE}}/contacts/" class="btn btn--blue" style="justify-content: center;" >Направить запрос</a>
+      <a class="btn btn--line" style="justify-content: center;" href="files/shtab-presentation.pdf" download>Скачать презентацию</a>
+      <div id="dropContacts" style="margin-top: 14px; display: flex; flex-direction: column; gap: 16px;"></div>
     </div>
   </div>
 </div>
@@ -625,22 +743,22 @@ var PUBLISH = true;
 var SHOWREEL = { src: '', poster: '', length: '' };
 
 var GALLERY = [
-  { img: '/shtab-site/img/case-gorky.jpg', cap: 'Форум «Горький» · деловая программа', note: 'команда 10 человек' },
-  { img: '/shtab-site/img/case-tavrida.jpg', cap: 'Таврида.Арт · арт-школа продюсирования ИИ', note: '100 участников' },
-  { img: '/shtab-site/img/tavrida-3.jpg', cap: 'Таврида.Арт · проектная работа в куполе', note: 'программа за 3 недели' },
-  { img: '/shtab-site/img/gorky-2.jpg', cap: 'Форум «Горький» · блок «Опыт предпринимателя»', note: 'спикеры и модерация' },
-  { img: '/shtab-site/img/arhipelag-1.jpg', cap: '«Архипелаг» · подготовка площадки', note: 'смена за 4 дня' }
+  { img: 'img/case-gorky.jpg', cap: 'Форум «Горький» · деловая программа', note: 'команда 10 человек' },
+  { img: 'img/case-tavrida.jpg', cap: 'Таврида.Арт · арт-школа продюсирования ИИ', note: '100 участников' },
+  { img: 'img/tavrida-3.jpg', cap: 'Таврида.Арт · проектная работа в куполе', note: 'программа за 3 недели' },
+  { img: 'img/gorky-2.jpg', cap: 'Форум «Горький» · блок «Опыт предпринимателя»', note: 'спикеры и модерация' },
+  { img: 'img/arhipelag-1.jpg', cap: '«Архипелаг» · подготовка площадки', note: 'смена за 4 дня' }
 ];
 
 var CASES = [
   { n: '01', slug: 'art-shkola-tavrida', metric: '100', metricLabel: 'участников', type: 'образование', client: 'АНО «Таврида.Арт»',
     title: 'Арт-школа продюсирования ИИ', meta: '100 участников · программа за 3 недели',
     photos: [
-      { src: '/shtab-site/img/case-tavrida.jpg', cap: 'Открытие арт-школы, работа с участниками' },
-      { src: '/shtab-site/img/tavrida-3.jpg', cap: 'Проектная работа участников в главном куполе' },
-      { src: '/shtab-site/img/tavrida-4.jpg', cap: 'Деловой блок программы' },
-      { src: '/shtab-site/img/tavrida-2.jpg', cap: 'Лекция о продюсировании проектов' },
-      { src: '/shtab-site/img/tavrida-5.jpg', cap: 'Разбор параметров проекта на лекции' }
+      { src: 'img/case-tavrida.jpg', cap: 'Открытие арт-школы, работа с участниками' },
+      { src: 'img/tavrida-3.jpg', cap: 'Проектная работа участников в главном куполе' },
+      { src: 'img/tavrida-4.jpg', cap: 'Деловой блок программы' },
+      { src: 'img/tavrida-2.jpg', cap: 'Лекция о продюсировании проектов' },
+      { src: 'img/tavrida-5.jpg', cap: 'Разбор параметров проекта на лекции' }
     ],
     lead: 'Программа с нуля: расписание, треки, кейсы, лекции, модерация и наставничество.',
     facts: [['Участников', '100'], ['Программа', '3 недели'], ['Роль', 'полный цикл']],
@@ -649,12 +767,12 @@ var CASES = [
   { n: '02', slug: 'forum-gorky', metric: '10', metricLabel: 'человек в команде', type: 'форум', client: 'Росмолодёжь.Предпринимай',
     title: 'Форум «Горький»', meta: 'программа, спикеры, продюсирование',
     photos: [
-      { src: '/shtab-site/img/case-gorky.jpg', cap: 'Деловой блок форума, выступление спикера' },
-      { src: '/shtab-site/img/gorky-2.jpg', cap: 'Зал форума: блок «Опыт предпринимателя»' },
-      { src: '/shtab-site/img/gorky-3.jpg', cap: 'Выступление о системном маркетинге' },
-      { src: '/shtab-site/img/gorky-4.jpg', cap: 'Блок о рынке труда и найме' },
-      { src: '/shtab-site/img/gorky-6.jpg', cap: 'Участники деловой программы' },
-      { src: '/shtab-site/img/gorky-5.jpg', cap: 'Работа ведущего в зале' }
+      { src: 'img/case-gorky.jpg', cap: 'Деловой блок форума, выступление спикера' },
+      { src: 'img/gorky-2.jpg', cap: 'Зал форума: блок «Опыт предпринимателя»' },
+      { src: 'img/gorky-3.jpg', cap: 'Выступление о системном маркетинге' },
+      { src: 'img/gorky-4.jpg', cap: 'Блок о рынке труда и найме' },
+      { src: 'img/gorky-6.jpg', cap: 'Участники деловой программы' },
+      { src: 'img/gorky-5.jpg', cap: 'Работа ведущего в зале' }
     ],
     lead: 'Программа форума, работа со спикерами, сбор команды и продюсирование площадки.',
     facts: [['Команда', '10 человек'], ['Формат', 'форум'], ['Город', 'Нижний Новгород']],
@@ -663,9 +781,9 @@ var CASES = [
   { n: '03', slug: 'arhipelag', metric: '40', metricLabel: 'человек за 4 дня', type: 'персонал', client: 'U24 · интенсив',
     title: '«Архипелаг»', meta: 'сбор смены с нуля',
     photos: [
-      { src: '/shtab-site/img/arhipelag-1.jpg', cap: 'Настройка звукового оборудования перед сессией' },
-      { src: '/shtab-site/img/arhipelag-2.jpg', cap: 'Техническая подготовка аудиторий' },
-      { src: '/shtab-site/img/arhipelag-3.jpg', cap: 'Рабочие места для участников интенсива' }
+      { src: 'img/arhipelag-1.jpg', cap: 'Настройка звукового оборудования перед сессией' },
+      { src: 'img/arhipelag-2.jpg', cap: 'Техническая подготовка аудиторий' },
+      { src: 'img/arhipelag-3.jpg', cap: 'Рабочие места для участников интенсива' }
     ],
     lead: 'Сбор команды под проект с нуля, включая линейный персонал.',
     facts: [['В смене', '40 человек'], ['Срок сбора', '4 дня'], ['Роль', 'персонал']],
@@ -1231,5 +1349,5 @@ if (window.IntersectionObserver) {
   Array.prototype.forEach.call(document.querySelectorAll('#p-home .sec'), function (x) { io.observe(x); });
 }
 </script>
-
-</body></html>
+</body>
+</html>
