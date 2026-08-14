@@ -5,6 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ШТАБ — организация форумов, конференций и образовательных программ</title>
 <meta name="description" content="Организуем деловые, образовательные и молодёжные события: программа и спикеры, команда на площадке, мультимедиа, съёмка и отчётность. Проекты для Таврида.Арт, Росмолодёжи, Минпромторга, Газпром недр, Ozon.">
+<meta name="theme-color" content="#001AFF">
+<!-- Сайт на согласовании: в поиск не пускаем. Строку удалять руками не нужно —
+     скрипт снимет её сам, когда в CONTACTS будут почта с телефоном, а в FORM — канал заявок. -->
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ШТАБ">
+<meta property="og:title" content="ШТАБ — организация форумов, конференций и образовательных программ">
+<meta property="og:description" content="Программа и спикеры, команда на площадке, мультимедиа и отчётность. Концепция и смета за три рабочих дня.">
+<meta property="og:image" content="img/case-gorky.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23001AFF'/%3E%3Ctext x='32' y='44' font-family='Helvetica,Arial,sans-serif' font-size='34' font-weight='700' fill='%23fff' text-anchor='middle'%3E%D0%A8%3C/text%3E%3C/svg%3E">
 <style>
   :root {
     --blue: #001AFF;
@@ -21,6 +32,11 @@
   img { display: block; max-width: 100%; }
   a { color: inherit; text-decoration: none; }
   h1, h2, h3, p { margin: 0; }
+  :focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; border-radius: 4px; }
+  .sec--ink :focus-visible { outline-color: #7f8cff; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  }
 
   @keyframes shtabMarquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
   @keyframes shtabRise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
@@ -59,6 +75,8 @@
   .nav-links { display: flex; gap: 28px; align-items: center; font-size: 16px; }
   .nav-links span { cursor: pointer; transition: color 180ms; }
   .nav-links span:hover { color: var(--blue); }
+  .nav-links [data-nav].on { color: var(--blue); font-weight: 600; }
+  .drop-body [data-nav].on { color: var(--blue); }
   .burger { display: none; width: 44px; height: 44px; border-radius: 12px; border: 1px solid var(--line); background: #fff; cursor: pointer; align-items: center; justify-content: center; flex-direction: column; gap: 5px; padding: 0; transition: border-color 200ms; }
   .burger:hover { border-color: var(--ink); }
   .burger i { display: block; width: 18px; height: 2px; background: var(--ink); border-radius: 2px; transition: transform 260ms cubic-bezier(.2,.9,.2,1), opacity 200ms; }
@@ -122,7 +140,7 @@
   .pill:hover { border-color: var(--blue); color: var(--blue); }
   .pill--on { background: var(--blue); border-color: var(--blue); color: #fff; }
   .pill--on:hover { color: #fff; }
-  #filters .pill, #budget .pill { cursor: pointer; }
+  #filters .pill { cursor: pointer; }
 
   /* --- процесс --- */
   .track { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; }
@@ -154,6 +172,37 @@
   .fld { font-family: inherit; font-size: 17px; color: var(--ink); background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 15px 18px; outline: none; width: 100%; transition: border-color 200ms, box-shadow 200ms; }
   .fld:focus { border-color: var(--blue); box-shadow: 0 0 0 4px rgba(0,26,255,.09); }
   .fld-l { font-size: 14px; color: var(--ink-60); margin-bottom: 8px; display: block; }
+  /* --- галерея кейса и просмотр фотографий --- */
+  .gal { display: flex; flex-wrap: wrap; gap: 14px; }
+  .thumb { flex: 0 1 280px; max-width: 100%; aspect-ratio: 3 / 2; padding: 0; border: 0; border-radius: 14px; overflow: hidden; background: var(--paper); cursor: zoom-in; position: relative; }
+  .thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 320ms cubic-bezier(.2,.9,.2,1); }
+  .thumb:hover img { transform: scale(1.05); }
+  .thumb-z { position: absolute; right: 10px; bottom: 10px; width: 30px; height: 30px; border-radius: 999px; background: rgba(10,12,16,.55); color: #fff; font-size: 15px; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 200ms; }
+  .thumb:hover .thumb-z, .thumb:focus-visible .thumb-z { opacity: 1; }
+
+  .lb { position: fixed; inset: 0; z-index: 100; background: rgba(10,12,16,.95); display: none; align-items: center; justify-content: center; padding: 72px 84px; }
+  .lb.open { display: flex; }
+  .lb img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px; }
+  .lb-btn { position: absolute; background: rgba(255,255,255,.14); color: #fff; border: 0; width: 46px; height: 46px; border-radius: 999px; cursor: pointer; font-size: 20px; line-height: 1; display: flex; align-items: center; justify-content: center; font-family: inherit; transition: background 180ms; }
+  .lb-btn:hover { background: rgba(255,255,255,.28); }
+  .lb-x { top: 22px; right: 22px; }
+  .lb-prev { left: 22px; top: 50%; transform: translateY(-50%); }
+  .lb-next { right: 22px; top: 50%; transform: translateY(-50%); }
+  .lb-cap { position: absolute; left: 0; right: 0; bottom: 22px; text-align: center; color: rgba(255,255,255,.72); font-size: 15px; padding: 0 84px; }
+  .lb-n { color: rgba(255,255,255,.4); margin-left: 10px; }
+  @media (max-width: 700px) {
+    .lb { padding: 64px 16px 84px; }
+    .lb-prev { left: 16px; top: auto; bottom: 20px; transform: none; }
+    .lb-next { right: 16px; top: auto; bottom: 20px; transform: none; }
+    .lb-cap { bottom: 32px; padding: 0 76px; font-size: 13px; }
+    .thumb { flex: 1 1 100%; }
+  }
+
+  .fld--bad { border-color: #C4001A; }
+  .fld--bad:focus { border-color: #C4001A; box-shadow: 0 0 0 4px rgba(196,0,26,.10); }
+  .form-note { font-size: 15px; line-height: 1.45; }
+  .form-note--bad { color: #C4001A; }
+  .form-note--ok { color: var(--blue); }
   .seg { display: flex; gap: 8px; flex-wrap: wrap; }
 
   /* --- прочее --- */
@@ -253,11 +302,11 @@
   <div class="wrap nav-in">
     <div class="logo" onclick="go('home')"><b>ШТАБ</b><i>SHTAB</i></div>
     <div class="nav-links">
-      <span class="hide-md" onclick="go('home')">Главная</span>
-      <span onclick="go('cases')">Проекты</span>
-      <span onclick="go('services')">Услуги</span>
-      <span class="hide-md" onclick="go('about')">Команда</span>
-      <span class="hide-md" onclick="go('contacts')">Контакты</span>
+      <span class="hide-md" data-nav="home" onclick="go('home')">Главная</span>
+      <span data-nav="cases" onclick="go('cases')">Проекты</span>
+      <span data-nav="services" onclick="go('services')">Услуги</span>
+      <span class="hide-md" data-nav="about" onclick="go('about')">Команда</span>
+      <span class="hide-md" data-nav="contacts" onclick="go('contacts')">Контакты</span>
       <button class="btn btn--blue" style="padding: 11px 20px; font-size: 15px;" onclick="go('contacts')">Связаться</button>
     </div>
     <button class="burger" id="burger" onclick="toggleMenu()" aria-label="Меню"><i></i><i></i><i></i></button>
@@ -461,8 +510,8 @@
         <div>
           <span class="eyebrow">бриф</span>
           <h2 class="h2" style="max-width: 22ch;">Данные для подготовки сметы</h2>
-          <p class="lead" style="margin-top: 18px;">Семи параметров достаточно для предварительного расчёта. Уточняющие вопросы задаём в рабочем порядке.</p>
-          <button class="btn btn--blue" style="margin-top: 26px;" onclick="go('contacts')">Отправить запрос</button>
+          <p class="lead" style="margin-top: 18px;">Семи параметров достаточно для предварительного расчёта. Соберём их на первом созвоне — оставьте имя и телефон, остальное уточним в рабочем порядке.</p>
+          <button class="btn btn--blue" style="margin-top: 26px;" onclick="go('contacts')">Оставить заявку</button>
         </div>
         <div id="briefFields" class="grid-2" style="gap: 12px;"></div>
       </div>
@@ -479,12 +528,16 @@
       <p class="lead" style="margin-top: 20px; max-width: 54ch;">Постоянный состав — 7 специалистов: продюсирование, программная дирекция, работа на площадке, производство контента. Под каждый проект команда расширяется в соответствии с задачей.</p>
       <div class="grid-3" style="margin-top: 48px;">
         <div>
-          <div class="shot" style="background: var(--paper); aspect-ratio: 3/4;"></div>
+          <div class="shot" style="background: var(--paper); aspect-ratio: 3/4; display: flex; align-items: center; justify-content: center; color: var(--ink-40); font-size: 46px; font-weight: 300;">К</div>
           <div class="card-body"><div class="card-title">Катерина</div><div class="card-meta">продюсер полного цикла</div></div>
         </div>
         <div>
           <div class="shot" style="background: var(--blue); aspect-ratio: 3/4; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 46px; font-weight: 300;">+6</div>
           <div class="card-body"><div class="card-title">Постоянный состав</div><div class="card-meta">программа, площадка, продакшн</div></div>
+        </div>
+        <div>
+          <div class="shot" style="background: var(--ink); aspect-ratio: 3/4; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 46px; font-weight: 300;">40</div>
+          <div class="card-body"><div class="card-title">Смена под проект</div><div class="card-meta">координаторы, хостес, линейный персонал — сбор за 4 дня</div></div>
         </div>
       </div>
     </div>
@@ -513,17 +566,24 @@
         <div>
           <span class="eyebrow">контакты</span>
           <h1 class="h1" style="max-width: 16ch;">Запрос на организацию мероприятия</h1>
-          <p class="lead" style="margin-top: 18px; max-width: 44ch;">Ответ в течение рабочего дня. Концепция и смета — в течение трёх рабочих дней.</p>
-          <div style="display: flex; flex-direction: column; gap: 20px; margin-top: 36px; max-width: 560px;">
-            <div><span class="fld-l">Повод и формат мероприятия</span><input class="fld" type="text" placeholder="форум, конференция, образовательная программа"></div>
+          <p class="lead" style="margin-top: 18px; max-width: 44ch;">Оставьте имя и телефон — перезвоним в течение рабочего дня и зададим уточняющие вопросы. Или позвоните сами.</p>
+          <form id="leadForm" novalidate style="display: flex; flex-direction: column; gap: 18px; margin-top: 36px; max-width: 560px;">
             <div class="grid-2" style="gap: 16px;">
-              <div><span class="fld-l">Дата и город</span><input class="fld" type="text" placeholder="сентябрь, Москва"></div>
-              <div><span class="fld-l">Участников</span><input class="fld" type="text" placeholder="100, 500, 2 000"></div>
+              <div>
+                <label class="fld-l" for="leadName">Имя</label>
+                <input class="fld" id="leadName" name="name" type="text" autocomplete="name" placeholder="Как к вам обращаться">
+              </div>
+              <div>
+                <label class="fld-l" for="leadPhone">Телефон</label>
+                <input class="fld" id="leadPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 900 000-00-00">
+              </div>
             </div>
-            <div><span class="fld-l">Бюджет</span><div class="seg" id="budget"></div></div>
-            <div><span class="fld-l">Контактные данные</span><input class="fld" type="text" placeholder="электронная почта или телефон"></div>
-            <button id="sendBtn" class="btn btn--blue" style="align-self: flex-start; margin-top: 6px;" onclick="send()">Отправить запрос</button>
-          </div>
+            <div id="leadNote" class="form-note" style="display: none;" role="status" aria-live="polite"></div>
+            <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+              <button id="sendBtn" class="btn btn--blue" type="submit">Оставить заявку</button>
+              <a id="callBtn" class="btn btn--line" href="#">Позвонить</a>
+            </div>
+          </form>
         </div>
         <div style="background: var(--paper); border-radius: 24px; padding: 40px; display: flex; flex-direction: column; gap: 30px;">
           <div id="contactCols" style="display: flex; flex-direction: column; gap: 26px;"></div>
@@ -564,6 +624,15 @@
   </div>
 </div>
 
+<!-- ПРОСМОТР ФОТОГРАФИЙ -->
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Просмотр фотографии">
+  <button class="lb-btn lb-x" onclick="lbClose()" aria-label="Закрыть">✕</button>
+  <button class="lb-btn lb-prev" onclick="lbStep(-1)" aria-label="Предыдущая фотография">←</button>
+  <img id="lbImg" alt="">
+  <button class="lb-btn lb-next" onclick="lbStep(1)" aria-label="Следующая фотография">→</button>
+  <div class="lb-cap" id="lbCap"></div>
+</div>
+
 <!-- МОБИЛЬНОЕ МЕНЮ -->
 <div class="drop" id="drop">
   <div class="drop-top">
@@ -571,11 +640,11 @@
     <button class="burger on" onclick="toggleMenu(false)" aria-label="Закрыть меню"><i></i><i></i><i></i></button>
   </div>
   <div class="drop-body">
-    <span class="dl" onclick="go('home')">Главная<span class="dl-arr">→</span></span>
-    <span class="dl" onclick="go('cases')">Проекты<span class="dl-arr">→</span></span>
-    <span class="dl" onclick="go('services')">Услуги<span class="dl-arr">→</span></span>
-    <span class="dl" onclick="go('about')">Команда<span class="dl-arr">→</span></span>
-    <span class="dl" onclick="go('contacts')">Контакты<span class="dl-arr">→</span></span>
+    <span class="dl" data-nav="home" onclick="go('home')">Главная<span class="dl-arr">→</span></span>
+    <span class="dl" data-nav="cases" onclick="go('cases')">Проекты<span class="dl-arr">→</span></span>
+    <span class="dl" data-nav="services" onclick="go('services')">Услуги<span class="dl-arr">→</span></span>
+    <span class="dl" data-nav="about" onclick="go('about')">Команда<span class="dl-arr">→</span></span>
+    <span class="dl" data-nav="contacts" onclick="go('contacts')">Контакты<span class="dl-arr">→</span></span>
     <div class="drop-foot">
       <button class="btn btn--blue" style="justify-content: center;" onclick="go('contacts')">Направить запрос</button>
       <a class="btn btn--line" style="justify-content: center;" href="files/shtab-presentation.pdf" download>Скачать презентацию</a>
@@ -594,6 +663,19 @@ var CONTACTS = {
   phone: '+7 XXX XXX-XX-XX'      // ЗАМЕНИТЬ на реальный телефон
 };
 
+/* Куда уходит заявка «имя + телефон». Пока 'none' — форма проверяет поля
+   и показывает номер для звонка, но никуда не отправляет.
+   Чтобы включить доставку, поставьте mode и заполните нужные поля:
+     'telegram'  — token + chat (бот пишет в чат)
+     'formspree' — endpoint вида https://formspree.io/f/xxxxxxx
+     'mailto'    — открывает почтовый клиент на CONTACTS.mail          */
+var FORM = {
+  mode: 'none',
+  token: '',
+  chat: '',
+  endpoint: ''
+};
+
 /* Шоурил в первом экране: положите mp4 в img/ и впишите путь. */
 var SHOWREEL = { src: '', poster: '', length: '' };
 
@@ -604,43 +686,45 @@ var GALLERY = [
 
 var CASES = [
   { n: '01', metric: '100', metricLabel: 'участников', type: 'образование', client: 'АНО «Таврида.Арт»',
-    title: 'Арт-школа продюсирования ИИ', meta: '100 участников · программа за 3 недели', img: 'img/case-tavrida.jpg',
+    title: 'Арт-школа продюсирования ИИ', meta: '100 участников · программа за 3 недели',
+    photos: [{ src: 'img/case-tavrida.jpg', cap: 'Открытие арт-школы, работа с участниками' }],
     lead: 'Программа с нуля: расписание, треки, кейсы, лекции, модерация и наставничество.',
     facts: [['Участников', '100'], ['Программа', '3 недели'], ['Роль', 'полный цикл']],
     task: 'Собрать программу под тему продюсирования с ИИ: не набор лекций, а логику, по которой участник доходит от идеи до собственного проекта.',
     did: ['Расписание и треки', 'Отбор и брифинг спикеров', 'Кейсы и практика', 'Модерация сессий', 'Наставничество участников'] },
   { n: '02', metric: '10', metricLabel: 'человек в команде', type: 'форум', client: 'Росмолодёжь.Предпринимай',
-    title: 'Форум «Горький»', meta: 'программа, спикеры, продюсирование', img: 'img/case-gorky.jpg',
+    title: 'Форум «Горький»', meta: 'программа, спикеры, продюсирование',
+    photos: [{ src: 'img/case-gorky.jpg', cap: 'Деловой блок форума, выступление спикера' }],
     lead: 'Программа форума, работа со спикерами, сбор команды и продюсирование площадки.',
     facts: [['Команда', '10 человек'], ['Формат', 'форум'], ['Город', 'Нижний Новгород']],
     task: 'Сделать форум, который держится на содержании, а не на сцене: программа, спикеры под аудиторию предпринимателей, ровная организация всех дней.',
     did: ['Программа деловых блоков', 'Спикеры и подготовка выступлений', 'Сбор и координация команды', 'Организация на площадке'] },
   { n: '03', metric: '40', metricLabel: 'человек за 4 дня', type: 'персонал', client: 'U24 · интенсив',
-    title: '«Архипелаг»', meta: 'сбор смены с нуля', img: '',
+    title: '«Архипелаг»', meta: 'сбор смены с нуля', photos: [],
     lead: 'Сбор команды под проект с нуля, включая линейный персонал.',
     facts: [['В смене', '40 человек'], ['Срок сбора', '4 дня'], ['Роль', 'персонал']],
     task: 'Найти, собрать и вывести полную смену в сжатый срок — вместе с линейным персоналом, которого обычно не хватает в последний момент.',
     did: ['Подбор команды под задачи', 'Линейный персонал и координаторы', 'Брифинг и роли', 'Координация в дни интенсива'] },
   { n: '04', metric: '40', metricLabel: 'проектов', type: 'образование', client: 'Минпромторг НО',
-    title: 'Школа медиаволонтёров', meta: 'наставничество, команда осталась у заказчика', img: '',
+    title: 'Школа медиаволонтёров', meta: 'наставничество, команда осталась у заказчика', photos: [],
     lead: 'Программа наставничества. Обученная команда осталась у заказчика.',
     facts: [['Проектов', '40'], ['Формат', 'школа'], ['Результат', 'команда у заказчика']],
     task: 'Не разовое обучение, а работающая команда внутри заказчика: люди, которые после школы ведут медианаправление сами.',
     did: ['Программа и учебные модули', 'Наставничество по проектам', 'Практика на реальных задачах', 'Передача команды заказчику'] },
   { n: '05', metric: '500+', metricLabel: 'участников', type: 'события', client: 'Ozon',
-    title: 'Серия городских мероприятий', meta: 'концепция, набор участников, шоу', img: '',
+    title: 'Серия городских мероприятий', meta: 'концепция, набор участников, шоу', photos: [],
     lead: 'Концепция серии, кампания набора участников, шоу-программа и призовой фонд.',
     facts: [['Участников', '500+'], ['Формат', 'серия событий'], ['Роль', 'продюсирование']],
     task: 'Собрать серию городских событий так, чтобы люди пришли: не только программа на площадке, но и кампания набора с понятной мотивацией.',
     did: ['Концепция серии', 'Кампания набора участников', 'Шоу-программа', 'Призовой фонд и механика'] },
   { n: '06', metric: '35', metricLabel: 'человек команда', type: 'церемонии', client: '«Тонус», зал «Юпитер»',
-    title: 'Юбилей сети', meta: '14 анимаций · 25 моделей · фильм', img: '',
+    title: 'Юбилей сети', meta: '14 анимаций · 25 моделей · фильм', photos: [],
     lead: 'Сценарий, три заставки, четырнадцать анимаций, фильм, 3D и кастинг.',
     facts: [['Команда', '35 человек'], ['Моделей', '25'], ['Анимаций', '14']],
     task: 'Сделать юбилей сети событием с режиссурой и собственным визуальным языком, а не отчётным концертом с презентацией на экране.',
     did: ['Сценарий и режиссура шоу', 'Заставки и анимации', 'Фильм и 3D-графика', 'Кастинг и работа с моделями'] },
   { n: '07', metric: '15+', metricLabel: 'локаций', type: 'видео', client: 'Газпром недра',
-    title: 'Корпоративный контент', meta: 'съёмка на промышленных объектах', img: '',
+    title: 'Корпоративный контент', meta: 'съёмка на промышленных объектах', photos: [],
     lead: 'Съёмка на промышленных объектах: разведка локаций, две смены, монтаж.',
     facts: [['Локаций', '15+'], ['Смен', '2'], ['Роль', 'продакшн']],
     task: 'Снять контент на действующих промышленных объектах, где доступ ограничен, а график смены нельзя сдвинуть: подготовка решает больше самой съёмки.',
@@ -724,8 +808,73 @@ var ABOUT_DO = ['Программу: треки, спикеры, модерац�
 var ABOUT_WHO = ['Федеральные АНО и институции развития', 'Региональные министерства', 'Промышленные и добывающие компании', 'Федеральный ритейл и сети', 'Образовательные и молодёжные организации'];
 
 /* ================== РЕНДЕР ================== */
-function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
 function el(id) { return document.getElementById(id); }
+
+/* всё, что кликается, должно открываться и с клавиатуры */
+function a11y(root) {
+  var list = (root || document).querySelectorAll('[onclick]');
+  for (var i = 0; i < list.length; i++) {
+    var n = list[i];
+    if (n.tagName === 'BUTTON' || n.tagName === 'A') { continue; }
+    if (!n.hasAttribute('tabindex')) { n.setAttribute('tabindex', '0'); }
+    if (!n.hasAttribute('role')) { n.setAttribute('role', 'button'); }
+  }
+}
+document.addEventListener('keydown', function (e) {
+  if (e.key !== 'Enter' && e.key !== ' ') { return; }
+  var t = e.target;
+  if (t && t.hasAttribute && t.hasAttribute('onclick') && t.tagName !== 'BUTTON' && t.tagName !== 'A' && t.tagName !== 'INPUT') {
+    e.preventDefault();
+    t.click();
+  }
+});
+
+/* ---------- просмотр фотографий во весь экран ---------- */
+var LB = {}, lbNow = [], lbI = 0, lbBack = null;
+function lbSet(key, list) { LB[key] = list || []; }
+function lbPaint() {
+  var p = lbNow[lbI];
+  if (!p) { return; }
+  el('lbImg').src = p.src;
+  el('lbImg').alt = p.cap || '';
+  el('lbCap').innerHTML = esc(p.cap || '') +
+    (lbNow.length > 1 ? '<span class="lb-n">' + (lbI + 1) + ' / ' + lbNow.length + '</span>' : '');
+  var many = lbNow.length > 1 ? 'flex' : 'none';
+  document.querySelector('.lb-prev').style.display = many;
+  document.querySelector('.lb-next').style.display = many;
+}
+function lbOpen(key, i) {
+  lbNow = LB[key] || [];
+  if (!lbNow.length) { return; }
+  lbI = Math.min(Math.max(i || 0, 0), lbNow.length - 1);
+  lbBack = document.activeElement;
+  lbPaint();
+  el('lb').classList.add('open');
+  document.documentElement.style.overflow = 'hidden';
+  document.body.style.overflow = 'hidden';
+  document.querySelector('.lb-x').focus();
+}
+function lbClose() {
+  if (!el('lb').classList.contains('open')) { return; }
+  el('lb').classList.remove('open');
+  el('lbImg').removeAttribute('src');
+  document.documentElement.style.overflow = '';
+  document.body.style.overflow = '';
+  if (lbBack && lbBack.focus) { lbBack.focus(); }
+}
+function lbStep(d) {
+  if (lbNow.length < 2) { return; }
+  lbI = (lbI + d + lbNow.length) % lbNow.length;
+  lbPaint();
+}
+el('lb').addEventListener('click', function (e) { if (e.target === el('lb')) { lbClose(); } });
+document.addEventListener('keydown', function (e) {
+  if (!el('lb').classList.contains('open')) { return; }
+  if (e.key === 'Escape') { e.preventDefault(); lbClose(); }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); lbStep(-1); }
+  if (e.key === 'ArrowRight') { e.preventDefault(); lbStep(1); }
+});
 
 var mq = MARQUEE.map(function (w) { return '<span>' + w + '</span>'; }).join('<span style="padding:0 18px;color:#3a3f52;">/</span>');
 el('marquee').innerHTML = '<div style="display:flex;align-items:center;padding-right:18px;">' + mq + '</div><div style="display:flex;align-items:center;padding-right:18px;"><span style="padding:0 18px;color:#3a3f52;">/</span>' + mq + '</div>';
@@ -743,8 +892,8 @@ el('mosaic').innerHTML = MOSAIC.map(function (m) {
 }).join('');
 
 function card(c) {
-  var inner = c.img
-    ? '<img src="' + c.img + '" alt="' + esc(c.title) + '" loading="lazy">'
+  var inner = c.photos && c.photos.length
+    ? '<img src="' + esc(c.photos[0].src) + '" alt="' + esc(c.title) + '" loading="lazy">'
     : '<div class="card-metric"><b>' + esc(c.metric) + '</b><span>' + esc(c.metricLabel) + '</span></div>';
   return '<div class="card" onclick="openCase(\'' + c.n + '\')">' +
     '<div class="card-shot">' + inner + '<span class="card-tag">' + esc(c.type) + '</span></div>' +
@@ -767,11 +916,14 @@ function filterCases(t) {
   var list = CASES.filter(function (c) { return t === 'все' || c.type === t; });
   el('caseGrid').innerHTML = list.map(card).join('');
   el('caseCount').textContent = list.length;
+  a11y(el('caseGrid'));
 }
 filterCases('все');
 
-el('gallery').innerHTML = GALLERY.map(function (g) {
-  return '<figure class="shot" style="margin:0;"><img src="' + g.img + '" alt="' + esc(g.cap) + '" loading="lazy">' +
+lbSet('site', GALLERY.map(function (g) { return { src: g.img, cap: g.cap }; }));
+el('gallery').innerHTML = GALLERY.map(function (g, k) {
+  return '<figure class="shot" style="margin:0;cursor:zoom-in;" onclick="lbOpen(\'site\',' + k + ')">' +
+    '<img src="' + esc(g.img) + '" alt="' + esc(g.cap) + '" loading="lazy">' +
     '<figcaption class="shot-cap"><span style="font-size:16px;">' + esc(g.cap) + '</span>' +
     '<span class="small" style="color:var(--blue);white-space:nowrap;font-weight:600;">' + esc(g.note) + '</span></figcaption></figure>';
 }).join('');
@@ -810,21 +962,49 @@ el('aboutWho').innerHTML = ABOUT_WHO.map(function (x) { return '<div style="padd
 el('next3').innerHTML = NEXT3.map(function (x, i) {
   return '<div style="display:flex;gap:12px;align-items:baseline;"><span class="tile-i" style="color:var(--blue);">0' + (i + 1) + '</span><span class="small" style="color:var(--ink);">' + esc(x) + '</span></div>';
 }).join('');
-el('budget').innerHTML = ['до 3 млн', '3—10 млн', '10+ млн'].map(function (b, i) {
-  return '<span class="pill' + (i === 1 ? ' pill--on' : '') + '" onclick="pickSeg(this)">' + b + '</span>';
-}).join('');
+/* телефон для href: только цифры и ведущий плюс.
+   Пока в CONTACTS.phone стоит плейсхолдер (меньше 10 цифр) — ссылки не звонят. */
+function phoneReady() { return String(CONTACTS.phone).replace(/\D/g, '').length >= 10; }
+function telHref(p) { return phoneReady() ? 'tel:' + String(p).replace(/[^\d+]/g, '') : ''; }
+/* то же для почты: плейсхолдер example.ru ссылкой не становится */
+function mailReady() { return /^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(String(CONTACTS.mail)) && !/(^|@)(example|test)\./i.test(String(CONTACTS.mail)); }
+var SOON = 'появится после согласования';
 
 /* контакты по сегментам — приём u24 */
 function contactBlocks(dark) {
   var c = dark ? 'rgba(255,255,255,.45)' : 'var(--ink-40)';
-  return [['Госзаказчикам и институциям', CONTACTS.mail, 'mailto:'], ['Корпоративным клиентам', CONTACTS.mail, 'mailto:'], ['Телефон', CONTACTS.phone, 'tel:']].map(function (x) {
-    return '<div class="foot-col"><b style="color:' + c + ';">' + x[0] + '</b><a href="' + x[2] + x[1] + '">' + x[1] + '</a></div>';
+  var m = mailReady() ? CONTACTS.mail : SOON;
+  var mh = mailReady() ? 'mailto:' + CONTACTS.mail : '';
+  return [
+    ['Госзаказчикам и институциям', m, mh],
+    ['Корпоративным клиентам', m, mh],
+    ['Телефон', phoneReady() ? CONTACTS.phone : SOON, telHref(CONTACTS.phone)]
+  ].map(function (x) {
+    var body = x[2]
+      ? '<a href="' + esc(x[2]) + '">' + esc(x[1]) + '</a>'
+      : '<span style="font-size:17px;">' + esc(x[1]) + '</span>';
+    return '<div class="foot-col"><b style="color:' + c + ';">' + esc(x[0]) + '</b>' + body + '</div>';
   }).join('');
 }
 el('contactCols').innerHTML = contactBlocks(false);
 el('dropContacts').innerHTML = contactBlocks(false);
 el('footContacts').innerHTML = contactBlocks(true) +
   '<div class="foot-col"><b style="color:rgba(255,255,255,.45);">Офис</b><span style="font-size:17px;">Москва</span></div>';
+
+/* кнопка «Позвонить» рядом с формой */
+(function () {
+  var b = el('callBtn');
+  if (phoneReady()) {
+    b.href = telHref(CONTACTS.phone);
+    b.textContent = 'Позвонить ' + CONTACTS.phone;
+  } else {
+    b.removeAttribute('href');
+    b.textContent = 'Телефон появится после согласования';
+    b.setAttribute('aria-disabled', 'true');
+    b.style.opacity = '.5';
+    b.style.cursor = 'default';
+  }
+})();
 
 var step = 0, auto = true;
 function renderSteps() {
@@ -837,6 +1017,7 @@ function renderSteps() {
     '<div><div class="tile-i" style="color:var(--blue);">' + s.n + ' · ' + esc(s.time) + ' · ' + esc(s.team) + '</div>' +
     '<p class="lead" style="margin-top:12px;color:var(--ink);">' + esc(s.text) + '</p></div>' +
     '<div class="pills">' + s.out.map(function (o) { return '<span class="pill">' + esc(o) + '</span>'; }).join('') + '</div>';
+  a11y(el('steps'));
 }
 function pickStep(i) { step = i; auto = false; el('autoBtn').textContent = 'автопрокрутка отключена'; renderSteps(); }
 function toggleAuto() { auto = !auto; el('autoBtn').textContent = auto ? 'автопрокрутка включена' : 'автопрокрутка отключена'; }
@@ -844,9 +1025,22 @@ setInterval(function () { if (auto && page === 'home') { step = (step + 1) % STE
 renderSteps();
 
 function openCase(n) {
-  var i = CASES.findIndex(function (c) { return c.n === n; });
+  var i = -1;
+  for (var k = 0; k < CASES.length; k++) { if (CASES[k].n === n) { i = k; break; } }
+  if (i < 0) { go('cases'); return; }
   var c = CASES[i], nx = CASES[(i + 1) % CASES.length];
-  var shot = c.img ? '<div class="shot" style="margin-top:40px;"><img src="' + c.img + '" alt="' + esc(c.title) + '" style="aspect-ratio:16/9;"></div>' : '';
+  var photos = c.photos || [];
+  lbSet('case', photos);
+  var shot = photos.length
+    ? '<div style="margin-top:44px;">' +
+        '<div class="sec-head" style="margin-bottom:18px;"><div><span class="eyebrow">фотографии</span>' +
+        '<h2 class="h2" style="font-size:26px;">С площадки</h2></div>' +
+        '<span class="small hide-md">нажмите, чтобы увеличить</span></div>' +
+        '<div class="gal">' + photos.map(function (p, k) {
+          return '<button class="thumb" onclick="lbOpen(\'case\',' + k + ')" aria-label="Открыть фотографию: ' + esc(p.cap || c.title) + '">' +
+            '<img src="' + esc(p.src) + '" alt="' + esc(p.cap || c.title) + '" loading="lazy"><span class="thumb-z" aria-hidden="true">⤢</span></button>';
+        }).join('') + '</div></div>'
+    : '';
   el('p-case').innerHTML =
     '<div class="sec"><div class="wrap">' +
       '<span class="link" onclick="go(\'cases\')">← Все проекты</span>' +
@@ -868,10 +1062,13 @@ function openCase(n) {
         '<button class="btn btn--blue" onclick="go(\'contacts\')">Направить запрос</button>' +
       '</div>' +
     '</div></div>';
+  openCaseN = c.n;
   go('case');
+  a11y(el('p-case'));
 }
 
 var page = 'home';
+var openCaseN = '';
 var PAGES = ['home', 'cases', 'case', 'services', 'about', 'contacts'];
 function toggleMenu(force) {
   var d = el('drop'), b = el('burger');
@@ -884,31 +1081,149 @@ function toggleMenu(force) {
 }
 document.addEventListener('keydown', function (e) { if (e.key === 'Escape') toggleMenu(false); });
 window.addEventListener('resize', function () { if (window.innerWidth > 1080) toggleMenu(false); });
+var TITLES = {
+  home: 'ШТАБ — организация форумов, конференций и образовательных программ',
+  cases: 'Проекты — ШТАБ',
+  services: 'Услуги — ШТАБ',
+  about: 'Команда — ШТАБ',
+  contacts: 'Контакты — ШТАБ'
+};
+
 function go(p) {
+  if (PAGES.indexOf(p) < 0) { p = 'home'; }
+  lbClose();
   toggleMenu(false);
   page = p;
   PAGES.forEach(function (x) { el('p-' + x).style.display = (x === p) ? 'block' : 'none'; });
-  if (p !== 'case') { location.hash = p === 'home' ? '' : p; }
+  var h = p === 'home' ? '' : (p === 'case' ? 'case/' + openCaseN : p);
+  if ((location.hash.slice(1) || '') !== h) { location.hash = h; }
+  document.title = p === 'case'
+    ? (CASES.filter(function (c) { return c.n === openCaseN; })[0] || {}).title + ' — ШТАБ'
+    : (TITLES[p] || TITLES.home);
+  markNav(p);
   window.scrollTo(0, 0);
 }
-if (location.hash) {
-  var h = location.hash.slice(1);
-  if (PAGES.indexOf(h) >= 0 && h !== 'case') { go(h); }
+
+/* подсветка активного пункта в шапке и в мобильном меню */
+function markNav(p) {
+  var all = document.querySelectorAll('.nav-links [data-nav], .drop-body [data-nav]');
+  for (var i = 0; i < all.length; i++) {
+    var on = all[i].getAttribute('data-nav') === (p === 'case' ? 'cases' : p);
+    all[i].classList.toggle('on', on);
+    if (on) { all[i].setAttribute('aria-current', 'page'); } else { all[i].removeAttribute('aria-current'); }
+  }
 }
 
-function pickSeg(e) {
-  var s = e.parentNode.children;
-  for (var i = 0; i < s.length; i++) { s[i].className = 'pill'; }
-  e.className = 'pill pill--on';
+/* адрес → страница. Работает и при загрузке, и по кнопке «назад» */
+function fromHash() {
+  var h = (location.hash || '').slice(1);
+  if (h.indexOf('case/') === 0) { openCase(h.slice(5)); return; }
+  go(PAGES.indexOf(h) >= 0 && h !== 'case' ? h : 'home');
 }
-function send() {
-  var b = el('sendBtn');
-  if (b.dataset.busy) return;
+window.addEventListener('hashchange', function () {
+  var h = (location.hash || '').slice(1);
+  var cur = page === 'home' ? '' : (page === 'case' ? 'case/' + openCaseN : page);
+  if (h !== cur) { fromHash(); }
+});
+fromHash();
+
+/* ---------- заявка: имя + телефон ---------- */
+function note(text, kind) {
+  var n = el('leadNote');
+  if (!text) { n.style.display = 'none'; n.textContent = ''; return; }
+  n.style.display = 'block';
+  n.className = 'form-note form-note--' + kind;
+  n.textContent = text;
+}
+function digits(s) { return String(s).replace(/\D/g, ''); }
+
+/* Заявке нужен рабочий канал доставки. Пока его нет, форма честно говорит,
+   что заявки не принимаются, вместо «спасибо, перезвоним» в пустоту. */
+function deliveryReady() {
+  if (FORM.mode === 'telegram') { return !!(FORM.token && FORM.chat); }
+  if (FORM.mode === 'formspree') { return !!FORM.endpoint; }
+  if (FORM.mode === 'mailto') { return mailReady(); }
+  return false;
+}
+
+function submitLead(e) {
+  if (e) { e.preventDefault(); }
+  var b = el('sendBtn'), fn = el('leadName'), fp = el('leadPhone');
+  if (b.dataset.busy || !deliveryReady()) { return false; }
+  var name = fn.value.trim(), phone = fp.value.trim();
+  fn.className = 'fld'; fp.className = 'fld';
+
+  if (name.length < 2) { fn.className = 'fld fld--bad'; fn.focus(); note('Напишите, как к вам обращаться.', 'bad'); return false; }
+  if (digits(phone).length < 10) { fp.className = 'fld fld--bad'; fp.focus(); note('Телефон нужен полностью, с кодом города или оператора.', 'bad'); return false; }
+
   b.dataset.busy = '1';
   b.textContent = 'Отправляем…';
-  setTimeout(function () { b.textContent = 'Запрос принят — ответим в течение дня'; }, 1200);
-  setTimeout(function () { b.textContent = 'Отправить запрос'; b.dataset.busy = ''; }, 5000);
+  note('', '');
+
+  deliver(name, phone).then(function () {
+    b.textContent = 'Заявка принята';
+    note('Спасибо, ' + name + '. Перезвоним в течение рабочего дня.' + (phoneReady() ? ' Если вопрос срочный — ' + CONTACTS.phone + '.' : ''), 'ok');
+    fn.value = ''; fp.value = '';
+    setTimeout(function () { b.textContent = 'Оставить заявку'; b.dataset.busy = ''; }, 6000);
+  }).catch(function () {
+    b.textContent = 'Оставить заявку';
+    b.dataset.busy = '';
+    note('Не удалось отправить. ' +
+      (phoneReady() && mailReady() ? 'Позвоните нам: ' + CONTACTS.phone + ' — или напишите на ' + CONTACTS.mail + '.'
+        : phoneReady() ? 'Позвоните нам: ' + CONTACTS.phone + '.'
+        : mailReady() ? 'Напишите на ' + CONTACTS.mail + '.'
+        : 'Попробуйте ещё раз чуть позже.'), 'bad');
+  });
+  return false;
 }
+
+/* доставка заявки. Пока FORM.mode = 'none' — заявка просто принимается на экране. */
+function deliver(name, phone) {
+  var text = 'Заявка с сайта ШТАБ\nИмя: ' + name + '\nТелефон: ' + phone;
+  if (FORM.mode === 'telegram' && FORM.token && FORM.chat) {
+    return fetch('https://api.telegram.org/bot' + FORM.token + '/sendMessage', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ chat_id: FORM.chat, text: text })
+    }).then(function (r) { if (!r.ok) { throw new Error('tg'); } });
+  }
+  if (FORM.mode === 'formspree' && FORM.endpoint) {
+    return fetch(FORM.endpoint, {
+      method: 'POST',
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: name, phone: phone })
+    }).then(function (r) { if (!r.ok) { throw new Error('fs'); } });
+  }
+  if (FORM.mode === 'mailto') {
+    location.href = 'mailto:' + CONTACTS.mail + '?subject=' + encodeURIComponent('Заявка с сайта: ' + name) + '&body=' + encodeURIComponent(text);
+    return Promise.resolve();
+  }
+  return new Promise(function (res) { setTimeout(res, 700); });
+}
+el('leadForm').addEventListener('submit', submitLead);
+
+/* Сайт не пускают в поиск и не принимают заявки, пока стоят плейсхолдеры.
+   Как только в CONTACTS появятся настоящие почта с телефоном, а в FORM —
+   канал доставки, оба замка снимаются сами: править разметку не нужно. */
+(function () {
+  var sb = el('sendBtn');
+  if (!deliveryReady()) {
+    sb.disabled = true;
+    sb.setAttribute('aria-disabled', 'true');
+    sb.style.opacity = '.5';
+    sb.style.cursor = 'default';
+    sb.textContent = 'Заявки пока не принимаем';
+    note('Сайт на согласовании. Форма заработает, когда подключим приём заявок.', 'bad');
+    el('leadName').disabled = true;
+    el('leadPhone').disabled = true;
+  }
+  if (mailReady() && phoneReady() && deliveryReady()) {
+    var r = document.querySelector('meta[name="robots"]');
+    if (r) { r.parentNode.removeChild(r); }
+  }
+})();
+
+a11y();
 
 if (window.IntersectionObserver) {
   var io = new IntersectionObserver(function (es) {
