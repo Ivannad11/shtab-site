@@ -152,6 +152,14 @@
   .tstep-t { font-size: 13px; color: var(--ink-60); }
 
   /* --- фото --- */
+  /* Лента с прокруткой вбок: галерея «Работа на площадке» */
+  .hstrip { display: flex; flex-wrap: nowrap; gap: 20px; overflow-x: auto; overflow-y: hidden;
+            scroll-snap-type: x proximity; scroll-behavior: smooth; -webkit-overflow-scrolling: touch;
+            padding-bottom: 12px; scrollbar-width: thin; scrollbar-color: var(--ink-40) transparent; }
+  .hstrip > * { flex: 0 0 400px; scroll-snap-align: start; }
+  .hstrip::-webkit-scrollbar { height: 6px; }
+  .hstrip::-webkit-scrollbar-track { background: var(--line); border-radius: 999px; }
+  .hstrip::-webkit-scrollbar-thumb { background: var(--ink-40); border-radius: 999px; }
   .shot { border-radius: var(--r); overflow: hidden; background: var(--paper); }
   .shot img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; transition: transform 900ms cubic-bezier(.2,.9,.2,1); }
   .shot:hover img { transform: scale(1.03); }
@@ -293,6 +301,7 @@
 
     .hscroll-md { display: flex; overflow-x: auto; gap: 12px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; padding-bottom: 6px; }
     .hscroll-md > * { flex: 0 0 88%; scroll-snap-align: start; }
+    .hstrip > * { flex: 0 0 84%; }
     .pill { padding: 9px 15px; font-size: 14px; }
     .btn { padding: 13px 20px; font-size: 15px; width: auto; }
     .nav-in { height: 60px; }
@@ -382,9 +391,9 @@
           <span class="eyebrow">материалы</span>
           <h2 class="h2">Работа на площадке</h2>
         </div>
-        <span class="small hide-md">материалы с мероприятий</span>
+        <span class="small hide-md">листайте вбок · нажмите, чтобы увеличить</span>
       </div>
-      <div id="gallery" class="grid-2 hscroll-md"></div>
+      <div id="gallery" class="hstrip"></div>
     </div>
   </div>
 
