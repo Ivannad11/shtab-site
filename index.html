@@ -582,6 +582,7 @@
             <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
               <button id="sendBtn" class="btn btn--blue" type="submit">Оставить заявку</button>
               <a id="callBtn" class="btn btn--line" href="#">Позвонить</a>
+              <a id="tgBtn" class="btn btn--line" style="display: none;" href="#" target="_blank" rel="noopener">Написать в Telegram</a>
             </div>
           </form>
         </div>
@@ -659,8 +660,9 @@
    52-сверка-макета-с-фактами.md (репозиторий katrinfelix/shtab).                */
 
 var CONTACTS = {
-  mail: 'hello@example.ru',      // ЗАМЕНИТЬ на реальную почту
-  phone: '+7 XXX XXX-XX-XX'      // ЗАМЕНИТЬ на реальный телефон
+  mail: 'ivannad11@yandex.ru',     // временная почта, заменить на почту ШТАБа
+  phone: '+7 930 819-76-46',
+  tg: 'fillius_fortunae'           // без @; пусто — блок Telegram не показывается
 };
 
 /* Куда уходит заявка «имя + телефон». Пока 'none' — форма проверяет поля
@@ -670,11 +672,16 @@ var CONTACTS = {
      'formspree' — endpoint вида https://formspree.io/f/xxxxxxx
      'mailto'    — открывает почтовый клиент на CONTACTS.mail          */
 var FORM = {
-  mode: 'none',
+  mode: 'mailto',
   token: '',
   chat: '',
   endpoint: ''
 };
+
+/* Пускать ли сайт в поиск. Пока false — стоит noindex: почта временная (личная,
+   не ШТАБа), часть фото и логотипов не заменена. Поставьте true, когда сайт
+   согласован — noindex снимется сам. */
+var PUBLISH = false;
 
 /* Шоурил в первом экране: положите mp4 в img/ и впишите путь. */
 var SHOWREEL = { src: '', poster: '', length: '' };
@@ -964,6 +971,7 @@ function phoneReady() { return String(CONTACTS.phone).replace(/\D/g, '').length 
 function telHref(p) { return phoneReady() ? 'tel:' + String(p).replace(/[^\d+]/g, '') : ''; }
 /* то же для почты: плейсхолдер example.ru ссылкой не становится */
 function mailReady() { return /^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(String(CONTACTS.mail)) && !/(^|@)(example|test)\./i.test(String(CONTACTS.mail)); }
+function tgName() { return String(CONTACTS.tg || '').replace(/^@|^https?:\/\/t\.me\//i, ''); }
 var SOON = 'появится после согласования';
 
 /* контакты по сегментам — приём u24 */
@@ -971,11 +979,13 @@ function contactBlocks(dark) {
   var c = dark ? 'rgba(255,255,255,.45)' : 'var(--ink-40)';
   var m = mailReady() ? CONTACTS.mail : SOON;
   var mh = mailReady() ? 'mailto:' + CONTACTS.mail : '';
-  return [
+  var rows = [
     ['Госзаказчикам и институциям', m, mh],
     ['Корпоративным клиентам', m, mh],
     ['Телефон', phoneReady() ? CONTACTS.phone : SOON, telHref(CONTACTS.phone)]
-  ].map(function (x) {
+  ];
+  if (tgName()) { rows.push(['Telegram', '@' + tgName(), 'https://t.me/' + tgName()]); }
+  return rows.map(function (x) {
     var body = x[2]
       ? '<a href="' + esc(x[2]) + '">' + esc(x[1]) + '</a>'
       : '<span style="font-size:17px;">' + esc(x[1]) + '</span>';
@@ -999,6 +1009,11 @@ el('footContacts').innerHTML = contactBlocks(true) +
     b.setAttribute('aria-disabled', 'true');
     b.style.opacity = '.5';
     b.style.cursor = 'default';
+  }
+  var t = el('tgBtn');
+  if (tgName()) {
+    t.href = 'https://t.me/' + tgName();
+    t.style.display = '';
   }
 })();
 
@@ -1157,8 +1172,10 @@ function submitLead(e) {
   note('', '');
 
   deliver(name, phone).then(function () {
-    b.textContent = 'Заявка принята';
-    note('Спасибо, ' + name + '. Перезвоним в течение рабочего дня.' + (phoneReady() ? ' Если вопрос срочный — ' + CONTACTS.phone + '.' : ''), 'ok');
+    b.textContent = FORM.mode === 'mailto' ? 'Письмо открыто' : 'Заявка принята';
+    note(FORM.mode === 'mailto'
+      ? 'Открыли письмо с вашими данными — отправьте его, и мы перезвоним. Если письмо не открылось, позвоните: ' + CONTACTS.phone + '.'
+      : 'Спасибо, ' + name + '. Перезвоним в течение рабочего дня.' + (phoneReady() ? ' Если вопрос срочный — ' + CONTACTS.phone + '.' : ''), 'ok');
     fn.value = ''; fp.value = '';
     setTimeout(function () { b.textContent = 'Оставить заявку'; b.dataset.busy = ''; }, 6000);
   }).catch(function () {
@@ -1213,7 +1230,7 @@ el('leadForm').addEventListener('submit', submitLead);
     el('leadName').disabled = true;
     el('leadPhone').disabled = true;
   }
-  if (mailReady() && phoneReady() && deliveryReady()) {
+  if (PUBLISH && mailReady() && phoneReady() && deliveryReady()) {
     var r = document.querySelector('meta[name="robots"]');
     if (r) { r.parentNode.removeChild(r); }
   }
