@@ -173,8 +173,14 @@
   .fld:focus { border-color: var(--blue); box-shadow: 0 0 0 4px rgba(0,26,255,.09); }
   .fld-l { font-size: 14px; color: var(--ink-60); margin-bottom: 8px; display: block; }
   /* --- галерея кейса и просмотр фотографий --- */
-  .gal { display: flex; flex-wrap: wrap; gap: 14px; }
-  .thumb { flex: 0 1 280px; max-width: 100%; aspect-ratio: 3 / 2; padding: 0; border: 0; border-radius: 14px; overflow: hidden; background: var(--paper); cursor: zoom-in; position: relative; }
+  /* Галерея кейса — одна строка с прокруткой вбок, без переноса на второй ряд */
+  .gal { display: flex; flex-wrap: nowrap; gap: 14px; overflow-x: auto; overflow-y: hidden;
+         scroll-snap-type: x proximity; scroll-behavior: smooth; -webkit-overflow-scrolling: touch;
+         padding-bottom: 12px; scrollbar-width: thin; scrollbar-color: var(--ink-40) transparent; }
+  .gal::-webkit-scrollbar { height: 6px; }
+  .gal::-webkit-scrollbar-track { background: var(--line); border-radius: 999px; }
+  .gal::-webkit-scrollbar-thumb { background: var(--ink-40); border-radius: 999px; }
+  .thumb { flex: 0 0 280px; scroll-snap-align: start; aspect-ratio: 3 / 2; padding: 0; border: 0; border-radius: 14px; overflow: hidden; background: var(--paper); cursor: zoom-in; position: relative; }
   .thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 320ms cubic-bezier(.2,.9,.2,1); }
   .thumb:hover img { transform: scale(1.05); }
   .thumb-z { position: absolute; right: 10px; bottom: 10px; width: 30px; height: 30px; border-radius: 999px; background: rgba(10,12,16,.55); color: #fff; font-size: 15px; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 200ms; }
@@ -195,7 +201,7 @@
     .lb-prev { left: 16px; top: auto; bottom: 20px; transform: none; }
     .lb-next { right: 16px; top: auto; bottom: 20px; transform: none; }
     .lb-cap { bottom: 32px; padding: 0 76px; font-size: 13px; }
-    .thumb { flex: 1 1 100%; }
+    .thumb { flex: 0 0 76%; }
   }
 
   .fld--bad { border-color: #C4001A; }
@@ -1065,7 +1071,7 @@ function openCase(n) {
     ? '<div style="margin-top:44px;">' +
         '<div class="sec-head" style="margin-bottom:18px;"><div><span class="eyebrow">фотографии</span>' +
         '<h2 class="h2" style="font-size:26px;">С площадки</h2></div>' +
-        '<span class="small hide-md">нажмите, чтобы увеличить</span></div>' +
+        '<span class="small hide-md">' + (photos.length > 4 ? 'листайте вбок · нажмите, чтобы увеличить' : 'нажмите, чтобы увеличить') + '</span></div>' +
         '<div class="gal">' + photos.map(function (p, k) {
           return '<button class="thumb" onclick="lbOpen(\'case\',' + k + ')" aria-label="Открыть фотографию: ' + esc(p.cap || c.title) + '">' +
             '<img src="' + esc(p.src) + '" alt="' + esc(p.cap || c.title) + '" loading="lazy"><span class="thumb-z" aria-hidden="true">⤢</span></button>';
