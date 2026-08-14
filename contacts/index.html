@@ -108,8 +108,8 @@
   .tile-i { font-size: 13px; color: var(--ink-40); font-weight: 600; }
 
   /* --- проекты --- */
-  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
-  .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
+  .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; }
   .card { cursor: pointer; display: flex; flex-direction: column; color: inherit; text-decoration: none; }
   .card-shot { border-radius: var(--r); overflow: hidden; position: relative; background: var(--paper); aspect-ratio: 4 / 3; display: flex; align-items: flex-end; padding: 22px; transition: box-shadow 300ms; }
   .card:hover .card-shot { box-shadow: 0 16px 36px rgba(20,24,40,.14); }
@@ -375,7 +375,7 @@
               </div>
             </div>
             <label class="agree">
-              <input type="checkbox" id="leadAgree" checked="">
+              <input type="checkbox" id="leadAgree">
               <span class="small">Отправляя заявку, соглашаюсь на <a href="/shtab-site/privacy/">обработку персональных данных</a></span>
             </label>
             <div id="leadNote" class="form-note" style="display: none;" role="status" aria-live="polite"></div>
@@ -920,7 +920,7 @@ function openCase(n) {
         '<h1 class="h1" style="max-width:16ch;">' + esc(c.title) + '</h1>' +
         '<p class="lead" style="margin-top:20px;max-width:44ch;">' + esc(c.lead) + '</p></div>' +
         '<div class="grid-3" style="gap:12px;">' + c.facts.map(function (f) {
-          return '<div class="tile tile--cat" style="min-height:120px;"><span class="tile-i">' + esc(f[0]) + '</span><div class="num" style="font-size:30px;">' + esc(f[1]) + '</div></div>';
+          return '<div class="tile tile--cat" style="min-height:120px;"><span class="tile-i">' + esc(f[0]) + '</span><div class="num" style="font-size:30px;hyphens:auto;overflow-wrap:break-word;">' + esc(f[1]) + '</div></div>';
         }).join('') + '</div></div>' +
       shot +
       '<div class="grid-2" style="gap:56px;margin-top:48px;align-items:start;">' +
