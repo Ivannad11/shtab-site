@@ -360,7 +360,7 @@
       <div class="sec-head">
         <div>
           <span class="eyebrow">проекты</span>
-          <h2 class="h2">Реализованные проекты</h2>
+          <h2 class="h2">Последние проекты</h2>
         </div>
         <span class="link" onclick="go('cases')">Все проекты →</span>
       </div>
@@ -481,9 +481,8 @@
       <div class="sec-head">
         <div>
           <span class="eyebrow">проекты</span>
-          <h1 class="h1">Проекты</h1>
+          <h1 class="h1">Последние проекты</h1>
         </div>
-        <div style="display: flex; align-items: baseline; gap: 12px;"><span id="caseCount" class="num">7</span><span class="small">в выборке</span></div>
       </div>
       <div id="filters" class="pills" style="margin-bottom: 40px;"></div>
       <div id="caseGrid" class="grid-3"></div>
@@ -694,7 +693,10 @@ var GALLERY = [
 var CASES = [
   { n: '01', metric: '100', metricLabel: 'участников', type: 'образование', client: 'АНО «Таврида.Арт»',
     title: 'Арт-школа продюсирования ИИ', meta: '100 участников · программа за 3 недели',
-    photos: [{ src: 'img/case-tavrida.jpg', cap: 'Открытие арт-школы, работа с участниками' }],
+    photos: [
+      { src: 'img/case-tavrida.jpg', cap: 'Открытие арт-школы, работа с участниками' },
+      { src: 'img/tavrida-2.jpg', cap: 'Лекция программы: продюсирование проектов' }
+    ],
     lead: 'Программа с нуля: расписание, треки, кейсы, лекции, модерация и наставничество.',
     facts: [['Участников', '100'], ['Программа', '3 недели'], ['Роль', 'полный цикл']],
     task: 'Собрать программу под тему продюсирования с ИИ: не набор лекций, а логику, по которой участник доходит от идеи до собственного проекта.',
@@ -918,7 +920,6 @@ function filterCases(t) {
   for (var i = 0; i < pills.length; i++) { pills[i].className = 'pill' + (pills[i].textContent === t ? ' pill--on' : ''); }
   var list = CASES.filter(function (c) { return t === 'все' || c.type === t; });
   el('caseGrid').innerHTML = list.map(card).join('');
-  el('caseCount').textContent = list.length;
   a11y(el('caseGrid'));
 }
 filterCases('все');
